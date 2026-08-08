@@ -1,0 +1,77 @@
+# .gitignore — Dikaios Amanah
+
+# ─── Node.js ──────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnp
+.pnp.js
+
+# ─── Build outputs ────────────────────────────────────
+dist/
+build/
+.next/
+.nuxt/
+.output/
+
+# ─── Environment & secrets ────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+*.pem
+*.key
+*.cert
+
+# ─── IDE & editor files ───────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# ─── Logs ─────────────────────────────────────────────
+logs/
+*.log
+
+# ─── Test coverage ────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ─── Docker ───────────────────────────────────────────
+*.dockerfile.local
+
+# ─── LaTeX build artefacts ────────────────────────────
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.synctex.gz
+*.toc
+*.xdv
+
+# ─── Python (if any tooling) ──────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+
+# ─── Temporary files ──────────────────────────────────
+*.tmp
+*.bak
+*.swp
+~$*
