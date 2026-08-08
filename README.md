@@ -90,18 +90,6 @@ dikaios-amanah/
 
 ---
 
-## 👥 Team
-
-| Role              | Name |
-|-------------------|------|
-| Project Lead      | —    |
-| Developer         | —    |
-| Developer         | —    |
-| Developer         | —    |
-
-> Update this table with your team members.
-
----
 
 ## 📄 Licence
 
