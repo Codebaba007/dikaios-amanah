@@ -1,0 +1,66 @@
+@startuml
+
+title Dikaios Amanah - Component Diagram
+
+left to right direction
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam nodesep 30
+skinparam ranksep 30
+
+actor "Business Owner" as BO
+actor "Investor" as INV
+actor "Administrator" as ADMIN
+
+package "Dikaios Amanah System" {
+
+    component "Web Frontend" as FRONTEND
+
+    component "Backend API" as API
+
+    component "Authentication &\nAuthorization" as AUTH
+
+    component "Business Management" as BUSINESS
+
+    component "Campaign Management" as CAMPAIGN
+
+    component "Verification Service" as VERIFY
+
+    component "Investment Management" as INVEST
+
+    component "Notification Service" as NOTIFY
+
+    component "Audit Service" as AUDIT
+
+    database "Application Database" as DB
+
+    database "Document Storage" as STORAGE
+}
+
+BO --> FRONTEND
+INV --> FRONTEND
+ADMIN --> FRONTEND
+
+FRONTEND --> API
+
+API --> AUTH
+API --> BUSINESS
+API --> CAMPAIGN
+API --> VERIFY
+API --> INVEST
+
+BUSINESS --> DB
+CAMPAIGN --> DB
+INVEST --> DB
+
+VERIFY --> DB
+VERIFY --> STORAGE
+
+AUDIT --> DB
+NOTIFY --> DB
+
+API --> AUDIT
+API --> NOTIFY
+
+@enduml

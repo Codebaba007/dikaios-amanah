@@ -1,0 +1,240 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------------------------------------------------
+% Packages
+% ----------------------------------------------------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows.meta}
+
+% ----------------------------------------------------
+% Document Formatting
+% ----------------------------------------------------
+
+\setstretch{1.5}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+% ----------------------------------------------------
+% Header and Footer
+% ----------------------------------------------------
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{Dikaios Amanah}
+\fancyhead[R]{Software Requirements Specification}
+
+\fancyfoot[C]{\thepage}
+
+% ----------------------------------------------------
+% Section Formatting
+% ----------------------------------------------------
+
+\titleformat{\section}
+{\Large\bfseries}
+{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}
+{\large\bfseries}
+{\thesubsection}{0.5em}{}
+
+% ----------------------------------------------------
+% Document
+% ----------------------------------------------------
+
+\begin{document}
+
+% ====================================================
+% COVER PAGE
+% ====================================================
+
+\input{chapters/cover}
+
+% ====================================================
+% TABLE OF CONTENTS
+% ====================================================
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+% ====================================================
+% 1. INTRODUCTION
+% ====================================================
+
+\section{Introduction}
+\input{chapters/introduction}
+
+% ====================================================
+% 2. OVERALL DESCRIPTION
+% ====================================================
+
+\IfFileExists{chapters/overall_description.tex}{
+    \section{Overall Description}
+    \input{chapters/overall_description}
+}{}
+
+% ====================================================
+% 3. FUNCTIONAL REQUIREMENTS
+% ====================================================
+
+\IfFileExists{chapters/functional_requirements.tex}{
+    \section{Functional Requirements}
+    \input{chapters/functional_requirements}
+}{}
+
+% ====================================================
+% 4. NON-FUNCTIONAL REQUIREMENTS
+% ====================================================
+
+\IfFileExists{chapters/non_functional_requirements.tex}{
+    \section{Non-Functional Requirements}
+    \input{chapters/non_functional_requirements}
+}{}
+
+% ====================================================
+% 5. EXTERNAL INTERFACE REQUIREMENTS
+% ====================================================
+
+\IfFileExists{chapters/external_interfaces.tex}{
+    \section{External Interface Requirements}
+    \input{chapters/external_interfaces}
+}{}
+
+% ====================================================
+% 6. SYSTEM DESIGN
+% ====================================================
+
+\IfFileExists{chapters/system_design.tex}{
+    \section{System Design}
+    \input{chapters/system_design}
+}{}
+
+% ====================================================
+% 7. USE CASES
+% ====================================================
+
+\IfFileExists{chapters/use_cases.tex}{
+    \section{Use Cases}
+    \input{chapters/use_cases}
+}{}
+
+% ====================================================
+% 8. DATA REQUIREMENTS
+% ====================================================
+
+\IfFileExists{chapters/data_requirements.tex}{
+    \section{Data Requirements}
+    \input{chapters/data_requirements}
+}{}
+
+% ====================================================
+% 9. SYSTEM CONSTRAINTS AND LIMITATIONS
+% ====================================================
+
+\IfFileExists{chapters/constraints.tex}{
+    \section{System Constraints and Limitations}
+    \input{chapters/constraints}
+}{}
+
+% ====================================================
+% 10. FUTURE ENHANCEMENTS
+% ====================================================
+
+\IfFileExists{chapters/future_enhancements.tex}{
+    \section{Future Enhancements}
+    \input{chapters/future_enhancements}
+}{}
+
+% ====================================================
+% 11. TESTING REQUIREMENTS
+% ====================================================
+
+\IfFileExists{chapters/testing_requirements.tex}{
+    \section{Testing Requirements}
+    \input{chapters/testing_requirements}
+}{}
+
+% ====================================================
+% 12. REQUIREMENTS TRACEABILITY
+% ====================================================
+
+\IfFileExists{chapters/traceability.tex}{
+    \section{Requirements Traceability}
+    \input{chapters/traceability}
+}{}
+
+% ====================================================
+% REFERENCES
+% ====================================================
+
+\newpage
+
+\section*{References}
+\addcontentsline{toc}{section}{References}
+
+\begin{enumerate}
+
+\item Meta, ``React Documentation.'' Available:
+\url{https://react.dev}
+
+\item Node.js Foundation, ``Node.js Documentation.'' Available:
+\url{https://nodejs.org}
+
+\item Express.js, ``Express.js Documentation.'' Available:
+\url{https://expressjs.com}
+
+\item PostgreSQL Global Development Group, ``PostgreSQL Documentation.''
+Available:
+\url{https://www.postgresql.org/docs/}
+
+\item Google, ``Firebase Documentation.'' Available:
+\url{https://firebase.google.com/docs}
+
+\item Auth0, ``JSON Web Token Introduction.'' Available:
+\url{https://jwt.io/introduction}
+
+\item NIST, ``Secure Hash Standard, FIPS PUB 180-4.'' Available:
+\url{https://csrc.nist.gov/publications/detail/fips/180/4/final}
+
+\item Hyperledger Foundation, ``Hyperledger Fabric Documentation.''
+Available:
+\url{https://hyperledger-fabric.readthedocs.io}
+
+\item GitHub, ``GitHub Documentation.'' Available:
+\url{https://docs.github.com}
+
+\item Bangladesh Bank, ``SME Financing.'' Available:
+\url{https://www.bb.org.bd}
+
+\item SME Foundation Bangladesh, ``SME Development in Bangladesh.''
+Available:
+\url{https://www.smef.gov.bd}
+
+\item AAOIFI, ``Shariah Standards.'' Available:
+\url{https://aaoifi.com}
+
+\end{enumerate}
+
+% ====================================================
+
+\end{document}

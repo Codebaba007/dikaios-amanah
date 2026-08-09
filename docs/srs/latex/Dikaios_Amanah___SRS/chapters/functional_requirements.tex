@@ -1,0 +1,376 @@
+% ====================================================
+% 3. Functional Requirements
+% ====================================================
+
+\subsection{Authentication and Account Management}
+
+\subsubsection{FR-AUTH-01: User Registration}
+
+The system shall allow a new user to register an account by providing the
+required personal and account information.
+
+\subsubsection{FR-AUTH-02: User Login}
+
+The system shall authenticate registered users using their valid login
+credentials.
+
+\subsubsection{FR-AUTH-03: Role-Based Access}
+
+The system shall assign users an appropriate system role and restrict access
+to functions according to the user's authorized role.
+
+The primary roles shall be:
+
+\begin{itemize}
+    \item Business Owner
+    \item Investor
+    \item Administrator
+\end{itemize}
+
+\subsubsection{FR-AUTH-04: Secure Password Storage}
+
+The system shall store user passwords using a secure password-hashing
+mechanism rather than storing plaintext passwords.
+
+\subsubsection{FR-AUTH-05: Session Authentication}
+
+The system shall maintain authenticated user sessions using a secure
+token-based authentication mechanism.
+
+\subsubsection{FR-AUTH-06: Account Management}
+
+The system shall allow authenticated users to view and manage their
+permitted account and profile information.
+
+
+% ====================================================
+% Business Owner Requirements
+% ====================================================
+
+\subsection{Business Owner Requirements}
+
+\subsubsection{FR-BUS-01: Business Profile Creation}
+
+The system shall allow an authenticated Business Owner to create a business
+profile containing the required business information.
+
+\subsubsection{FR-BUS-02: Business Profile Management}
+
+The system shall allow a Business Owner to update permitted business profile
+information.
+
+\subsubsection{FR-BUS-03: Verification Submission}
+
+The system shall allow a Business Owner to submit the required business
+verification information for administrative review.
+
+\subsubsection{FR-BUS-04: Document Submission}
+
+The system shall allow a Business Owner to upload supporting documents
+required for the verification process.
+
+\subsubsection{FR-BUS-05: Verification Status}
+
+The system shall allow a Business Owner to view the current status of the
+business verification process.
+
+\subsubsection{FR-BUS-06: Campaign Creation}
+
+The system shall allow an approved Business Owner to create an investment
+campaign containing the required campaign information.
+
+\subsubsection{FR-BUS-07: Campaign Management}
+
+The system shall allow an authorized Business Owner to view and manage
+permitted information associated with their campaigns.
+
+\subsubsection{FR-BUS-08: Campaign Progress}
+
+The system shall allow a Business Owner to monitor the funding progress of
+an approved campaign.
+
+\subsubsection{FR-BUS-09: Business Progress Reporting}
+
+The system shall allow a Business Owner to submit business progress
+information relevant to an active campaign.
+
+\subsubsection{FR-BUS-10: Profit Declaration}
+
+The system shall allow an authorized Business Owner to record declared
+business profit information associated with an investment campaign.
+
+
+% ====================================================
+% Investor Requirements
+% ====================================================
+
+\subsection{Investor Requirements}
+
+\subsubsection{FR-INV-01: Investor Verification}
+
+The system shall allow an Investor to submit the required information for
+the investor verification process.
+
+\subsubsection{FR-INV-02: Investor Dashboard}
+
+The system shall provide an authenticated Investor with a dashboard
+containing relevant investment and account information.
+
+\subsubsection{FR-INV-03: Campaign Discovery}
+
+The system shall allow verified Investors to browse approved investment
+campaigns.
+
+\subsubsection{FR-INV-04: Campaign Information}
+
+The system shall allow an Investor to view relevant information about an
+approved investment campaign before participating.
+
+\subsubsection{FR-INV-05: Business Information}
+
+The system shall allow an Investor to view permitted information about the
+business associated with an approved investment campaign.
+
+\subsubsection{FR-INV-06: Risk Information}
+
+The system shall present available risk assessment information associated
+with an investment opportunity.
+
+\subsubsection{FR-INV-07: Simulated Investment}
+
+The system shall allow an eligible Investor to participate in a simulated
+investment transaction during the MVP.
+
+\subsubsection{FR-INV-08: Investment Confirmation}
+
+The system shall provide confirmation after a simulated investment has been
+successfully recorded.
+
+\subsubsection{FR-INV-09: Portfolio Management}
+
+The system shall allow an Investor to view their investment portfolio.
+
+\subsubsection{FR-INV-10: Investment History}
+
+The system shall allow an Investor to view the history of their recorded
+investment activities.
+
+\subsubsection{FR-INV-11: Profit Information}
+
+The system shall allow an Investor to view declared profit information
+associated with their investments.
+
+
+% ====================================================
+% Administrator Requirements
+% ====================================================
+
+\subsection{Administrator Requirements}
+
+\subsubsection{FR-ADMIN-01: Administrator Dashboard}
+
+The system shall provide an authenticated Administrator with an
+administrative dashboard containing relevant platform information.
+
+\subsubsection{FR-ADMIN-02: User Management}
+
+The system shall allow authorized Administrators to view and manage user
+accounts according to their administrative permissions.
+
+\subsubsection{FR-ADMIN-03: Business Verification Review}
+
+The system shall allow an Administrator to review submitted business
+verification information.
+
+\subsubsection{FR-ADMIN-04: Business Approval}
+
+The system shall allow an Administrator to approve or reject a business
+verification request.
+
+\subsubsection{FR-ADMIN-05: Document Review}
+
+The system shall allow an Administrator to review documents submitted as
+part of the verification process.
+
+\subsubsection{FR-ADMIN-06: Risk Assessment Management}
+
+The system shall allow an authorized Administrator to manage the risk
+assessment information associated with eligible businesses or campaigns.
+
+\subsubsection{FR-ADMIN-07: Campaign Moderation}
+
+The system shall allow an Administrator to review and moderate submitted
+investment campaigns.
+
+\subsubsection{FR-ADMIN-08: Campaign Approval}
+
+The system shall allow an Administrator to approve or reject a submitted
+investment campaign.
+
+\subsubsection{FR-ADMIN-09: Platform Activity Monitoring}
+
+The system shall allow an Administrator to monitor relevant platform
+activities.
+
+\subsubsection{FR-ADMIN-10: Platform Reporting}
+
+The system shall provide authorized Administrators with access to relevant
+platform reports.
+
+
+% ====================================================
+% Campaign Management
+% ====================================================
+
+\subsection{Investment Campaign Management}
+
+\subsubsection{FR-CAM-01: Campaign Submission}
+
+The system shall allow an approved Business Owner to submit an investment
+campaign for administrative review.
+
+\subsubsection{FR-CAM-02: Campaign Approval Status}
+
+The system shall maintain the approval status of each submitted campaign.
+
+\subsubsection{FR-CAM-03: Campaign Publication}
+
+The system shall make an approved campaign available to eligible Investors.
+
+\subsubsection{FR-CAM-04: Campaign Information Display}
+
+The system shall display the relevant campaign information required for an
+Investor to review an investment opportunity.
+
+\subsubsection{FR-CAM-05: Campaign Funding Progress}
+
+The system shall maintain and display the recorded funding progress of an
+active campaign.
+
+\subsubsection{FR-CAM-06: Campaign Lifecycle}
+
+The system shall maintain the status of a campaign throughout its defined
+lifecycle, including relevant approval, active, and completed states.
+
+
+% ====================================================
+% Document Management
+% ====================================================
+
+\subsection{Document Management Requirements}
+
+\subsubsection{FR-DOC-01: Document Upload}
+
+The system shall allow authorized users to upload documents required for
+verification and other permitted platform activities.
+
+\subsubsection{FR-DOC-02: Secure Document Storage}
+
+The system shall store uploaded documents using the designated secure
+document storage service.
+
+\subsubsection{FR-DOC-03: Document Integrity Hash}
+
+The system shall generate a cryptographic hash for applicable uploaded
+documents to support document integrity verification.
+
+\subsubsection{FR-DOC-04: Document Verification}
+
+The system shall allow authorized Administrators to review the integrity
+information associated with submitted documents.
+
+
+% ====================================================
+% Notification and Activity Requirements
+% ====================================================
+
+\subsection{Notification and Activity Requirements}
+
+\subsubsection{FR-NOT-01: User Notifications}
+
+The system shall provide notifications for relevant events affecting
+authorized users.
+
+\subsubsection{FR-NOT-02: Verification Notification}
+
+The system shall notify relevant users when the status of a verification
+request changes.
+
+\subsubsection{FR-NOT-03: Campaign Notification}
+
+The system shall provide relevant campaign-related activity notifications
+to authorized users.
+
+\subsubsection{FR-NOT-04: Activity History}
+
+The system shall maintain a history of relevant user and platform
+activities.
+
+
+% ====================================================
+% Trust and Audit Requirements
+% ====================================================
+
+\subsection{Trust and Audit Requirements}
+
+\subsubsection{FR-AUD-01: Critical Event Recording}
+
+The system shall record defined critical system events through the
+Permissioned Trust and Audit Layer.
+
+\subsubsection{FR-AUD-02: Business Verification Audit}
+
+The system shall record relevant business verification events in the audit
+record.
+
+\subsubsection{FR-AUD-03: Contract Approval Audit}
+
+The system shall record relevant contract approval events in the audit
+record.
+
+\subsubsection{FR-AUD-04: Investment Confirmation Audit}
+
+The system shall record relevant investment confirmation events in the
+audit record.
+
+\subsubsection{FR-AUD-05: Profit Declaration Audit}
+
+The system shall record relevant profit declaration events in the audit
+record.
+
+\subsubsection{FR-AUD-06: Audit Record Access}
+
+The system shall allow authorized users to view permitted audit and activity
+information.
+
+\subsubsection{FR-AUD-07: Audit Integrity}
+
+The system shall provide a mechanism for detecting unauthorized alteration
+of applicable audit records.
+
+
+% ====================================================
+% Agreement and Investment Lifecycle
+% ====================================================
+
+\subsection{Investment Lifecycle Requirements}
+
+\subsubsection{FR-LIFE-01: Investment Participation}
+
+The system shall associate a recorded simulated investment with the
+corresponding Investor and approved campaign.
+
+\subsubsection{FR-LIFE-02: Investment Record}
+
+The system shall maintain the information necessary to identify a recorded
+investment, its associated campaign, and its participating Investor.
+
+\subsubsection{FR-LIFE-03: Profit Record}
+
+The system shall maintain declared profit information associated with
+eligible investment activities.
+
+\subsubsection{FR-LIFE-04: Investment Status}
+
+The system shall maintain the status of recorded investment activities
+throughout the supported investment lifecycle.

@@ -1,0 +1,239 @@
+\subsection{Product Perspective}
+
+Dikaios Amanah is a web-based software platform designed to facilitate
+structured interaction between verified Small and Medium Enterprises (SMEs),
+retail investors, and system administrators.
+
+The system follows a layered three-tier architecture consisting of a
+presentation layer, an application layer, and a data layer. The separation
+of these layers allows user interaction, application logic, security
+controls, and persistent data management to be handled independently.
+
+The presentation layer provides the web interface for Business Owners,
+Investors, and Administrators. The application layer processes requests,
+enforces business rules, manages authentication and authorization, and
+coordinates the major platform services. The data layer manages operational
+records, business information, investment information, and supporting
+documents.
+
+The proposed system is intended to operate as a technology-enabled
+intermediary rather than as a financial institution. Investment transactions
+within the academic MVP will be simulated for demonstration and testing
+purposes.
+
+
+\subsection{Product Functions}
+
+The major functions of Dikaios Amanah are organized according to the
+responsibilities of the system's primary users.
+
+\subsubsection{User Registration and Authentication}
+
+The system will provide account registration and authentication mechanisms
+for users. Authentication will use secure password handling and token-based
+session management. Access to system resources will be controlled according
+to the user's assigned role.
+
+\subsubsection{Business Owner Functions}
+
+Business Owners will be able to:
+
+\begin{itemize}
+    \item Register an account.
+    \item Complete identity and business verification.
+    \item Manage business profile information.
+    \item Submit supporting documents.
+    \item Create investment campaigns after approval.
+    \item Monitor campaign progress.
+    \item Provide business progress information.
+    \item Declare business profits.
+    \item Communicate relevant information to investors.
+\end{itemize}
+
+A business must complete the required verification and administrative review
+before its investment campaign becomes available to investors.
+
+
+\subsubsection{Investor Functions}
+
+Investors will be able to:
+
+\begin{itemize}
+    \item Register an account.
+    \item Complete the required KYC verification process.
+    \item Discover verified businesses and approved campaigns.
+    \item Review business and campaign information.
+    \item Review available risk information.
+    \item Participate in simulated investment transactions.
+    \item Monitor investments.
+    \item View portfolio information.
+    \item Track investment history.
+    \item Monitor declared profits.
+\end{itemize}
+
+
+\subsubsection{Administrator Functions}
+
+Administrators will be responsible for maintaining platform integrity and
+managing operational activities. Administrative functions will include:
+
+\begin{itemize}
+    \item User verification.
+    \item Business approval and rejection.
+    \item Document validation.
+    \item Risk assessment management.
+    \item Campaign moderation.
+    \item User management.
+    \item Audit monitoring.
+    \item Platform activity monitoring.
+    \item Platform reporting.
+\end{itemize}
+
+Administrative actions will be recorded through the system's activity and
+audit mechanisms.
+
+
+\subsubsection{Investment Campaign Management}
+
+The system will allow approved Business Owners to create and manage
+investment campaigns. Campaign information will be presented to Investors
+after the required administrative approval.
+
+Investors will be able to review approved campaigns before participating.
+The campaign lifecycle will support the proposed workflow from campaign
+publication through investment participation and eventual completion.
+
+
+\subsubsection{Document Management}
+
+The system will allow Business Owners to submit supporting documents during
+the verification process. Documents will be stored using the planned secure
+cloud storage mechanism.
+
+Cryptographic hashing will be used to support document integrity
+verification and help identify unauthorized modification of stored
+document
+content.
+
+
+\subsubsection{Trust and Audit Functions}
+
+The system will maintain records of important platform events through a
+Permissioned Trust and Audit Layer.
+
+Critical events identified by the project proposal include:
+
+\begin{itemize}
+    \item Business verification.
+    \item Contract approval.
+    \item Investment confirmation.
+    \item Profit declaration.
+    \item Audit records.
+    \item Document integrity verification.
+\end{itemize}
+
+The trust and audit mechanism will complement the primary relational
+database rather than replace it.
+
+
+\subsubsection{Notification and Activity Functions}
+
+The system will provide notifications and activity information to help
+users remain aware of relevant actions and changes within the platform.
+
+Examples include verification status changes, campaign-related updates,
+investment-related activities, and administrative actions.
+
+
+\subsection{User Classes and Characteristics}
+
+Dikaios Amanah contains three primary user classes.
+
+\subsubsection{Business Owner}
+
+A Business Owner represents an SME seeking investment through the platform.
+Business Owners are expected to provide accurate business information and
+supporting documentation. They will primarily interact with the platform
+through the Business Owner Dashboard.
+
+\subsubsection{Investor}
+
+An Investor represents an individual seeking to participate in verified
+Musharakah-based investment opportunities. Investors will use the platform
+to review business information, evaluate available opportunities, manage
+simulated investments, and monitor their portfolios.
+
+\subsubsection{Administrator}
+
+An Administrator is an authorized platform operator responsible for
+verification, approval, monitoring, moderation, and other administrative
+activities. Administrators have access to functions that are restricted
+from Business Owners and Investors.
+
+
+\subsection{Operating Environment}
+
+The proposed system will operate as a web-based application.
+
+The planned software environment consists of:
+
+\begin{itemize}
+    \item React.js for the frontend application.
+    \item Node.js as the backend runtime environment.
+    \item Express.js for backend and RESTful API services.
+    \item PostgreSQL for relational data management.
+    \item Firebase Storage for secure document storage.
+    \item JWT for authentication.
+    \item bcrypt for password hashing.
+    \item SHA-256 for document integrity verification.
+    \item Git and GitHub for version control.
+\end{itemize}
+
+Users will access the system through modern web browsers using an internet
+connection. Communication between the frontend and backend services will
+use HTTPS.
+
+
+\subsection{Design Constraints}
+
+The following constraints are derived from the defined project scope and
+academic MVP objectives:
+
+\begin{itemize}
+    \item The project must remain within the defined academic MVP scope.
+    \item Investment transactions will be simulated rather than connected to
+    real financial payment systems.
+    \item Live banking integration is excluded from the MVP.
+    \item Real payment gateway integration is excluded from the MVP.
+    \item Production-level BSEC regulatory compliance implementation is
+    excluded from the MVP.
+    \item AI-based fraud detection is excluded from the MVP.
+    \item AI-powered risk prediction is excluded from the MVP.
+    \item Production Hyperledger Fabric deployment is excluded from the MVP.
+    \item Automated smart contract execution is excluded from the MVP.
+    \item Native Android and iOS applications are excluded from the MVP.
+\end{itemize}
+
+These limitations are intended to keep the system technically achievable
+within the project's academic development scope.
+
+
+\subsection{Assumptions and Dependencies}
+
+The system development is based on several assumptions established in the
+project proposal:
+
+\begin{itemize}
+    \item Users have basic digital literacy.
+    \item Users have access to an internet connection.
+    \item Businesses provide authentic documentation.
+    \item Administrators perform verification activities responsibly.
+    \item The system is initially developed for academic demonstration
+    purposes.
+    \item Investment transactions used during testing are simulated.
+\end{itemize}
+
+The system also depends on the availability and proper operation of its
+planned software and infrastructure components, including the relational
+database, document storage service, authentication mechanisms, and
+deployment environment.

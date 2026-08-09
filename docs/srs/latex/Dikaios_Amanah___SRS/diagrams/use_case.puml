@@ -1,0 +1,87 @@
+@startuml
+
+left to right direction
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam nodesep 20
+skinparam ranksep 25
+
+actor "Business Owner" as BO
+actor "Investor" as INV
+actor "Administrator" as ADMIN
+
+rectangle "Dikaios Amanah System" {
+
+    usecase "Manage Business" as U1
+    usecase "Submit Verification" as U2
+    usecase "Manage Campaign" as U3
+    usecase "Report Progress" as U4
+    usecase "Declare Profit" as U5
+
+    usecase "Browse Campaigns" as U6
+    usecase "View Campaign" as U7
+    usecase "Make Investment" as U8
+    usecase "Manage Portfolio" as U9
+    usecase "Investment History" as U10
+
+    usecase "Manage Users" as U11
+    usecase "Verify Business" as U12
+    usecase "Review Documents" as U13
+    usecase "Approve Campaign" as U14
+    usecase "Monitor & Audit" as U15
+
+    ' Force compact rows
+    U1 -[hidden]right- U2
+    U2 -[hidden]right- U3
+    U3 -[hidden]right- U4
+    U4 -[hidden]right- U5
+
+    U6 -[hidden]right- U7
+    U7 -[hidden]right- U8
+    U8 -[hidden]right- U9
+    U9 -[hidden]right- U10
+
+    U11 -[hidden]right- U12
+    U12 -[hidden]right- U13
+    U13 -[hidden]right- U14
+    U14 -[hidden]right- U15
+
+    U1 -[hidden]down- U6
+    U6 -[hidden]down- U11
+
+    U2 -[hidden]down- U7
+    U7 -[hidden]down- U12
+
+    U3 -[hidden]down- U8
+    U8 -[hidden]down- U13
+
+    U4 -[hidden]down- U9
+    U9 -[hidden]down- U14
+
+    U5 -[hidden]down- U10
+    U10 -[hidden]down- U15
+}
+
+' Business Owner
+BO --> U1
+BO --> U2
+BO --> U3
+BO --> U4
+BO --> U5
+
+' Investor
+INV --> U6
+INV --> U7
+INV --> U8
+INV --> U9
+INV --> U10
+
+' Administrator
+ADMIN --> U11
+ADMIN --> U12
+ADMIN --> U13
+ADMIN --> U14
+ADMIN --> U15
+
+@enduml
