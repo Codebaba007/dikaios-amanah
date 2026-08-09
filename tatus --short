@@ -1,0 +1,220 @@
+backend/restore_tamper.js:20: trailing whitespace.
+[32m+[m[41m    [m
+backend/restore_tamper.js:35: trailing whitespace.
+[32m+[m[41m          [m
+backend/restore_tamper.js:40: trailing whitespace.
+[32m+[m[41m          [m
+backend/restore_tamper.js:42: trailing whitespace.
+[32m+[m[41m          [m
+backend/restore_tamper.js:60: trailing whitespace.
+[32m+[m[41m          [m
+backend/restore_tamper.js:65: trailing whitespace.
+[32m+[m[41m          [m
+backend/restore_tamper.js:67: trailing whitespace.
+[32m+[m[41m          [m
+backend/restore_tamper.js:74: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/controllers/campaign.controller.js:19: trailing whitespace.
+[32m+[m[32m      return res.status(403).json({[m[41m [m
+backend/src/controllers/campaign.controller.js:20: trailing whitespace.
+[32m+[m[32m        error: `Campaign creation blocked. Your verification status is ${business.verificationStatus}.`[m[41m [m
+backend/src/controllers/investor.controller.js:24: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/controllers/investor.controller.js:129: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/controllers/verification.controller.js:11: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/routes/admin.routes.js:2: trailing whitespace.
+[32m+[m[32mconst {[m[41m [m
+backend/src/routes/admin.routes.js:3: trailing whitespace.
+[32m+[m[32m  getPendingVerifications,[m[41m [m
+backend/src/routes/admin.routes.js:4: trailing whitespace.
+[32m+[m[32m  reviewVerification,[m[41m [m
+backend/src/routes/admin.routes.js:5: trailing whitespace.
+[32m+[m[32m  getPendingCampaigns,[m[41m [m
+backend/src/routes/admin.routes.js:6: trailing whitespace.
+[32m+[m[32m  reviewCampaign,[m[41m [m
+backend/src/routes/investor.routes.js:2: trailing whitespace.
+[32m+[m[32mconst {[m[41m [m
+backend/src/routes/investor.routes.js:3: trailing whitespace.
+[32m+[m[32m  getApprovedCampaigns,[m[41m [m
+backend/src/routes/investor.routes.js:4: trailing whitespace.
+[32m+[m[32m  getCampaignDetails,[m[41m [m
+backend/src/routes/investor.routes.js:5: trailing whitespace.
+[32m+[m[32m  makeInvestment,[m[41m [m
+backend/src/routes/investor.routes.js:6: trailing whitespace.
+[32m+[m[32m  getPortfolio[m[41m [m
+backend/src/services/storage.service.js:24: trailing whitespace.
+[32m+[m[32mconst upload = multer({[m[41m [m
+backend/src/services/trust.service.js:8: trailing whitespace.
+[32m+[m[41m  [m
+backend/src/services/trust.service.js:21: trailing whitespace.
+[32m+[m[32m   * Can be passed a Prisma transaction object (`tx`) to ensure atomicity[m[41m [m
+backend/src/services/trust.service.js:34: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/services/trust.service.js:37: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/services/trust.service.js:70: trailing whitespace.
+[32m+[m[41m    [m
+backend/src/services/trust.service.js:73: trailing whitespace.
+[32m+[m[41m      [m
+backend/test_admin_login.js:11: trailing whitespace.
+[32m+[m[41m    [m
+backend/test_phase2.js:76: trailing whitespace.
+[32m+[m[41m    [m
+backend/test_phase4.js:53: trailing whitespace.
+[32m+[m[41m    [m
+backend/test_phase4.js:126: trailing whitespace.
+[32m+[m[41m    [m
+backend/test_phase4.js:132: trailing whitespace.
+[32m+[m[41m    [m
+backend/test_tamper.js:22: trailing whitespace.
+[32m+[m[41m    [m
+frontend/src/App.jsx:34: trailing whitespace.
+[32m+[m[41m          [m
+frontend/src/App.jsx:39: trailing whitespace.
+[32m+[m[41m          [m
+frontend/src/index.css:8: trailing whitespace.
+[32m+[m[41m  [m
+frontend/src/index.css:13: trailing whitespace.
+[32m+[m[41m  [m
+frontend/src/index.css:17: trailing whitespace.
+[32m+[m[41m  [m
+frontend/src/index.css:29: trailing whitespace.
+[32m+[m[41m  [m
+frontend/src/index.css:38: trailing whitespace.
+[32m+[m[41m  [m
+frontend/src/index.css:43: trailing whitespace.
+[32m+[m[41m  [m
+frontend/src/index.css:54: trailing whitespace.
+[32m+[m[41m    [m
+frontend/src/index.css:57: trailing whitespace.
+[32m+[m[41m    [m
+frontend/src/index.css:59: trailing whitespace.
+[32m+[m[41m    [m
+frontend/src/pages/Home.jsx:11: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/Login.jsx:22: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/Login.jsx:25: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/Login.jsx:43: trailing whitespace.
+[32m+[m[32m            <input[m[41m [m
+frontend/src/pages/Login.jsx:44: trailing whitespace.
+[32m+[m[32m              type="email"[m[41m [m
+frontend/src/pages/Login.jsx:45: trailing whitespace.
+[32m+[m[32m              className="form-input"[m[41m [m
+frontend/src/pages/Login.jsx:53: trailing whitespace.
+[32m+[m[32m            <input[m[41m [m
+frontend/src/pages/Login.jsx:54: trailing whitespace.
+[32m+[m[32m              type="password"[m[41m [m
+frontend/src/pages/Login.jsx:55: trailing whitespace.
+[32m+[m[32m              className="form-input"[m[41m [m
+frontend/src/pages/Register.jsx:22: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/Register.jsx:25: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/Register.jsx:43: trailing whitespace.
+[32m+[m[32m            <input[m[41m [m
+frontend/src/pages/Register.jsx:44: trailing whitespace.
+[32m+[m[32m              type="text"[m[41m [m
+frontend/src/pages/Register.jsx:45: trailing whitespace.
+[32m+[m[32m              className="form-input"[m[41m [m
+frontend/src/pages/Register.jsx:53: trailing whitespace.
+[32m+[m[32m            <input[m[41m [m
+frontend/src/pages/Register.jsx:54: trailing whitespace.
+[32m+[m[32m              type="email"[m[41m [m
+frontend/src/pages/Register.jsx:55: trailing whitespace.
+[32m+[m[32m              className="form-input"[m[41m [m
+frontend/src/pages/Register.jsx:63: trailing whitespace.
+[32m+[m[32m            <input[m[41m [m
+frontend/src/pages/Register.jsx:64: trailing whitespace.
+[32m+[m[32m              type="password"[m[41m [m
+frontend/src/pages/Register.jsx:65: trailing whitespace.
+[32m+[m[32m              className="form-input"[m[41m [m
+frontend/src/pages/Register.jsx:73: trailing whitespace.
+[32m+[m[32m            <select[m[41m [m
+frontend/src/pages/admin/AdminDashboard.jsx:11: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/admin/AdminDashboard.jsx:13: trailing whitespace.
+[32m+[m[41m        [m
+frontend/src/pages/admin/AuditLogs.jsx:68: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/admin/ReviewCampaigns.jsx:37: trailing whitespace.
+[32m+[m[32m        headers: {[m[41m [m
+frontend/src/pages/admin/ReviewCampaigns.jsx:39: trailing whitespace.
+[32m+[m[32m          'Authorization': `Bearer ${localStorage.getItem('token')}`[m[41m [m
+frontend/src/pages/admin/ReviewCampaigns.jsx:54: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/admin/ReviewVerifications.jsx:37: trailing whitespace.
+[32m+[m[32m        headers: {[m[41m [m
+frontend/src/pages/admin/ReviewVerifications.jsx:39: trailing whitespace.
+[32m+[m[32m          'Authorization': `Bearer ${localStorage.getItem('token')}`[m[41m [m
+frontend/src/pages/admin/ReviewVerifications.jsx:54: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/business/BusinessDashboard.jsx:63: trailing whitespace.
+[32m+[m[41m        [m
+frontend/src/pages/business/CreateBusiness.jsx:16: trailing whitespace.
+[32m+[m[32m        headers: {[m[41m [m
+frontend/src/pages/business/CreateBusiness.jsx:24: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/business/CreateBusiness.jsx:36: trailing whitespace.
+[32m+[m[41m        [m
+frontend/src/pages/business/CreateCampaign.jsx:16: trailing whitespace.
+[32m+[m[32m        headers: {[m[41m [m
+frontend/src/pages/business/CreateCampaign.jsx:24: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/business/CreateCampaign.jsx:36: trailing whitespace.
+[32m+[m[41m        [m
+frontend/src/pages/business/SubmitVerification.jsx:27: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/business/SubmitVerification.jsx:39: trailing whitespace.
+[32m+[m[41m        [m
+frontend/src/pages/business/SubmitVerification.jsx:41: trailing whitespace.
+[32m+[m[41m        [m
+frontend/src/pages/business/SubmitVerification.jsx:45: trailing whitespace.
+[32m+[m[32m            <input[m[41m [m
+frontend/src/pages/business/SubmitVerification.jsx:46: trailing whitespace.
+[32m+[m[32m              type="file"[m[41m [m
+frontend/src/pages/business/SubmitVerification.jsx:47: trailing whitespace.
+[32m+[m[32m              className="form-input"[m[41m [m
+frontend/src/pages/business/SubmitVerification.jsx:48: trailing whitespace.
+[32m+[m[32m              onChange={e => setFile(e.target.files[0])}[m[41m [m
+frontend/src/pages/business/SubmitVerification.jsx:50: trailing whitespace.
+[32m+[m[32m              required[m[41m [m
+frontend/src/pages/investor/BrowseCampaigns.jsx:37: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/investor/BrowseCampaigns.jsx:53: trailing whitespace.
+[32m+[m[41m                [m
+frontend/src/pages/investor/CampaignDetails.jsx:38: trailing whitespace.
+[32m+[m[41m    [m
+frontend/src/pages/investor/CampaignDetails.jsx:42: trailing whitespace.
+[32m+[m[32m        headers: {[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:50: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/investor/CampaignDetails.jsx:68: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/investor/CampaignDetails.jsx:74: trailing whitespace.
+[32m+[m[41m          [m
+frontend/src/pages/investor/CampaignDetails.jsx:108: trailing whitespace.
+[32m+[m[41m            [m
+frontend/src/pages/investor/CampaignDetails.jsx:112: trailing whitespace.
+[32m+[m[41m            [m
+frontend/src/pages/investor/CampaignDetails.jsx:122: trailing whitespace.
+[32m+[m[32m                  <input[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:123: trailing whitespace.
+[32m+[m[32m                    type="number"[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:124: trailing whitespace.
+[32m+[m[32m                    min="1"[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:127: trailing whitespace.
+[32m+[m[32m                    className="form-input"[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:128: trailing whitespace.
+[32m+[m[32m                    value={amount}[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:129: trailing whitespace.
+[32m+[m[32m                    onChange={e => setAmount(e.target.value)}[m[41m [m
+frontend/src/pages/investor/CampaignDetails.jsx:130: trailing whitespace.
+[32m+[m[32m                    required[m[41m [m
+frontend/src/pages/investor/InvestorDashboard.jsx:11: trailing whitespace.
+[32m+[m[41m      [m
+frontend/src/pages/investor/InvestorDashboard.jsx:13: trailing whitespace.
+[32m+[m[41m        [m

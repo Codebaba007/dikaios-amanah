@@ -1,16 +1,16 @@
-# frontend/ — Frontend Application
+# React + Vite
 
-> **Status: 📋 PLANNED — Implementation has not started.**
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-This directory will contain the frontend web application for **Dikaios Amanah**.
+Currently, two official plugins are available:
 
-## Planned Technology
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-- **Framework:** React.js (subject to finalisation after SRS)
-- **Language:** JavaScript / TypeScript (TBD)
-- **Styling:** CSS / UI library (TBD)
+## React Compiler
 
-## Notes
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- Frontend implementation will begin after the SRS and system design phases are complete.
-- Structure, routing, and component organisation will be defined during the Frontend Development phase.
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.

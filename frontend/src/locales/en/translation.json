@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Welcome to Dikaios Amanah",
+    "subtitle": "A Secure, Transparent and Ethical SME Investment Platform",
+    "cta": "Get Started"
+  },
+  "auth": {
+    "login_title": "Sign In to Your Account",
+    "register_title": "Create an Account",
+    "name": "Full Name",
+    "email": "Email Address",
+    "password": "Password",
+    "role": "I am a...",
+    "role_business": "Business Owner",
+    "role_investor": "Investor",
+    "submit": "Submit"
+  },
+  "business": {
+    "dashboard": "Business Dashboard",
+    "create_profile": "Create Business Profile",
+    "submit_verification": "Submit Verification",
+    "create_campaign": "Create Campaign",
+    "business_name": "Business Name",
+    "description": "Description",
+    "industry": "Industry",
+    "document": "Supporting Document",
+    "status": "Verification Status",
+    "status_pending": "Pending",
+    "status_approved": "Approved",
+    "status_rejected": "Rejected",
+    "status_not_submitted": "Not Submitted",
+    "campaign_title": "Campaign Title",
+    "funding_goal": "Funding Goal",
+    "submit": "Submit",
+    "upload_doc_help": "Please upload a valid document (PDF, JPG, PNG) verifying your business entity."
+  },
+  "admin": {
+    "dashboard": "Administrator Dashboard",
+    "verifications": "Pending Verifications",
+    "campaigns": "Pending Campaigns",
+    "audits": "Audit Logs",
+    "review": "Review",
+    "approve": "Approve",
+    "reject": "Reject",
+    "remarks": "Rejection Remarks (Reason)",
+    "no_pending": "No pending items found.",
+    "document": "View Document",
+    "audit_event": "Event Type",
+    "audit_user": "User",
+    "audit_time": "Timestamp",
+    "audit_hash": "Integrity Hash"
+  },
+  "investor": {
+    "dashboard": "Investor Dashboard",
+    "portfolio": "My Portfolio",
+    "browse_campaigns": "Browse Campaigns",
+    "invest": "Invest Now",
+    "investment_amount": "Investment Amount ($)",
+    "confirm_investment": "Confirm Simulated Investment",
+    "investment_history": "Investment History",
+    "campaign_details": "Campaign Details",
+    "funding_progress": "Funding Progress",
+    "remaining_capacity": "Remaining Capacity",
+    "invested_at": "Invested At",
+    "status": "Status",
+    "profit_declarations": "Profit Declarations",
+    "no_campaigns": "No available campaigns at the moment.",
+    "no_investments": "You haven't made any investments yet."
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "home": "হোম",
+    "login": "লগইন",
+    "register": "নিবন্ধন",
+    "logout": "লগআউট"
+  },
+  "home": {
+    "title": "ডিকাইওস আমানাহ এ স্বাগতম",
+    "subtitle": "একটি নিরাপদ, স্বচ্ছ এবং নৈতিক এসএমই বিনিয়োগ প্ল্যাটফর্ম",
+    "cta": "শুরু করুন"
+  },
+  "auth": {
+    "login_title": "আপনার অ্যাকাউন্টে সাইন ইন করুন",
+    "register_title": "একটি অ্যাকাউন্ট তৈরি করুন",
+    "name": "পূর্ণ নাম",
+    "email": "ইমেইল ঠিকানা",
+    "password": "পাসওয়ার্ড",
+    "role": "আমি একজন...",
+    "role_business": "ব্যবসার মালিক",
+    "role_investor": "বিনিয়োগকারী",
+    "submit": "জমা দিন"
+  },
+  "business": {
+    "dashboard": "ব্যবসা ড্যাশবোর্ড",
+    "create_profile": "ব্যবসার প্রোফাইল তৈরি করুন",
+    "submit_verification": "যাচাইকরণ জমা দিন",
+    "create_campaign": "ক্যাম্পেইন তৈরি করুন",
+    "business_name": "ব্যবসার নাম",
+    "description": "বিবরণ",
+    "industry": "শিল্প",
+    "document": "সহায়ক নথি",
+    "status": "যাচাইকরণ স্থিতি",
+    "status_pending": "অপেক্ষমাণ",
+    "status_approved": "অনুমোদিত",
+    "status_rejected": "প্রত্যাখ্যাত",
+    "status_not_submitted": "জমা দেওয়া হয়নি",
+    "campaign_title": "ক্যাম্পেইনের শিরোনাম",
+    "funding_goal": "তহবিলের লক্ষ্য",
+    "submit": "জমা দিন",
+    "upload_doc_help": "দয়া করে আপনার ব্যবসায়িক সত্তা যাচাইকারী একটি বৈধ নথি (PDF, JPG, PNG) আপলোড করুন।"
+  },
+  "admin": {
+    "dashboard": "প্রশাসক ড্যাশবোর্ড",
+    "verifications": "অপেক্ষমাণ যাচাইকরণ",
+    "campaigns": "অপেক্ষমাণ ক্যাম্পেইন",
+    "audits": "অডিট লগ",
+    "review": "পর্যালোচনা",
+    "approve": "অনুমোদন",
+    "reject": "প্রত্যাখ্যান",
+    "remarks": "প্রত্যাখ্যানের কারণ",
+    "no_pending": "কোন অপেক্ষমাণ আইটেম পাওয়া যায়নি।",
+    "document": "নথি দেখুন",
+    "audit_event": "ইভেন্টের ধরন",
+    "audit_user": "ব্যবহারকারী",
+    "audit_time": "সময়",
+    "audit_hash": "ইন্টিগ্রিটি হ্যাশ"
+  },
+  "investor": {
+    "dashboard": "বিনিয়োগকারী ড্যাশবোর্ড",
+    "portfolio": "আমার পোর্টফোলিও",
+    "browse_campaigns": "ক্যাম্পেইন ব্রাউজ করুন",
+    "invest": "এখনই বিনিয়োগ করুন",
+    "investment_amount": "বিনিয়োগের পরিমাণ ($)",
+    "confirm_investment": "সিমুলেটেড বিনিয়োগ নিশ্চিত করুন",
+    "investment_history": "বিনিয়োগের ইতিহাস",
+    "campaign_details": "ক্যাম্পেইনের বিবরণ",
+    "funding_progress": "তহবিলের অগ্রগতি",
+    "remaining_capacity": "অবশিষ্ট ক্ষমতা",
+    "invested_at": "বিনিয়োগের সময়",
+    "status": "স্থিতি",
+    "profit_declarations": "লাভের ঘোষণা",
+    "no_campaigns": "এই মুহূর্তে কোনো উপলব্ধ ক্যাম্পেইন নেই।",
+    "no_investments": "আপনি এখনও কোনো বিনিয়োগ করেননি।"
+  }
+}

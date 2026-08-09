@@ -1,0 +1,143 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  BUSINESS_OWNER
+  INVESTOR
+  ADMINISTRATOR
+}
+
+model User {
+  id             String    @id @default(uuid())
+  name           String
+  email          String    @unique
+  passwordHash   String
+  role           Role
+  status         String    @default("ACTIVE")
+  createdAt      DateTime  @default(now())
+
+  // Relations
+  business       Business?
+  investments    Investment[]
+  auditRecords   AuditRecord[]
+  notifications  Notification[]
+}
+
+model Business {
+  id                 String    @id @default(uuid())
+  businessName       String
+  description        String
+  industry           String
+  verificationStatus String    @default("PENDING")
+  createdAt          DateTime  @default(now())
+
+  // Foreign key to BusinessOwner (User)
+  ownerId            String    @unique
+  owner              User      @relation(fields: [ownerId], references: [id])
+
+  campaigns          Campaign[]
+  verifications      Verification[]
+}
+
+model Campaign {
+  id                 String    @id @default(uuid())
+  title              String
+  description        String
+  fundingGoal        Decimal
+  currentFunding     Decimal   @default(0.0)
+  status             String    @default("PENDING") // PENDING, APPROVED, ACTIVE, COMPLETED
+  createdAt          DateTime  @default(now())
+
+  // Foreign key to Business
+  businessId         String
+  business           Business  @relation(fields: [businessId], references: [id])
+
+  investments        Investment[]
+  profitDeclarations ProfitDeclaration[]
+}
+
+model Verification {
+  id                 String    @id @default(uuid())
+  verificationType   String    // e.g., "IDENTITY", "BUSINESS"
+  status             String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  submittedAt        DateTime  @default(now())
+  reviewedAt         DateTime?
+  remarks            String?
+
+  // Foreign key to Business
+  businessId         String
+  business           Business  @relation(fields: [businessId], references: [id])
+
+  documents          Document[]
+}
+
+model Document {
+  id                 String    @id @default(uuid())
+  fileName           String
+  fileType           String
+  storageReference   String
+  integrityHash      String
+  uploadedAt         DateTime  @default(now())
+
+  // Foreign key to Verification
+  verificationId     String
+  verification       Verification @relation(fields: [verificationId], references: [id])
+}
+
+model Investment {
+  id                 String    @id @default(uuid())
+  amount             Decimal
+  status             String    @default("COMPLETED")
+  investedAt         DateTime  @default(now())
+
+  // Foreign key to Investor (User)
+  investorId         String
+  investor           User      @relation(fields: [investorId], references: [id])
+
+  // Foreign key to Campaign
+  campaignId         String
+  campaign           Campaign  @relation(fields: [campaignId], references: [id])
+}
+
+model ProfitDeclaration {
+  id                 String    @id @default(uuid())
+  amount             Decimal
+  period             String
+  declaredAt         DateTime  @default(now())
+  status             String    @default("PENDING")
+
+  // Foreign key to Campaign
+  campaignId         String
+  campaign           Campaign  @relation(fields: [campaignId], references: [id])
+}
+
+model AuditRecord {
+  id                 String    @id @default(uuid())
+  eventType          String
+  entityId           String?
+  timestamp          DateTime  @default(now())
+  integrityHash      String
+  previousHash       String?
+
+  // Foreign key to User
+  userId             String?
+  user               User?     @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id                 String    @id @default(uuid())
+  message            String
+  type               String
+  isRead             Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+
+  // Foreign key to User
+  userId             String
+  user               User      @relation(fields: [userId], references: [id])
+}

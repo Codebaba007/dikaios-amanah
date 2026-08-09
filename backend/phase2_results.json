@@ -1,0 +1,67 @@
+[
+  {
+    "test": "1. Register BUSINESS_OWNER account",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "2. Log in",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "4. Create Business profile",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "5. Confirm Business record stored in DB",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "6. Submit actual PDF document",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "8. Confirm Document database record contains metadata",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "7. Confirm file is stored locally",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "9. Confirm Verification record is created",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "10. Confirm Business verification status becomes PENDING",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "11 & 12. Confirm AuditRecord with hash info",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "14 & 15. Backend rejects campaign creation if PENDING (403)",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "19. Protected routes reject unauthenticated access",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "20. INVESTOR cannot access Business Owner endpoints (403)",
+    "status": "PASS",
+    "details": ""
+  }
+]
