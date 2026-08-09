@@ -1,0 +1,147 @@
+\subsection{Requirements Traceability}
+
+Requirements traceability establishes a relationship between the
+identified system requirements, their implementation, and the testing
+activities used to verify them.
+
+The traceability process helps ensure that each major requirement is
+addressed by the system design and can be verified through appropriate
+testing.
+
+\subsubsection{Traceability Approach}
+
+Each functional requirement shall have a unique identifier. These
+identifiers shall be used consistently throughout the system design,
+implementation, and testing documentation.
+
+The main traceability relationship is:
+
+\begin{center}
+\textbf{Requirement $\rightarrow$ Design $\rightarrow$ Implementation
+$\rightarrow$ Test Case}
+\end{center}
+
+This approach allows the development team to determine whether a
+requirement has been implemented and whether sufficient testing has been
+performed.
+
+\subsubsection{Functional Requirement Traceability}
+
+The following table provides a high-level mapping between the major
+functional requirements and their corresponding system areas and testing
+activities.
+
+\begin{table}[H]
+\centering
+\small
+
+\begin{tabularx}{\textwidth}{>{\bfseries}l X X X}
+\toprule
+Requirement & System Area & Design Element & Verification \\
+\midrule
+
+FR-AUTH &
+Authentication and account management &
+Authentication module &
+Authentication tests \\
+
+FR-BO &
+Business Owner functionality &
+Business management and campaign modules &
+Business Owner functional tests \\
+
+FR-INV &
+Investor functionality &
+Investment and portfolio modules &
+Investor functional tests \\
+
+FR-ADM &
+Administrator functionality &
+Administration module &
+Administrator functional tests \\
+
+FR-VER &
+Business verification &
+Verification and document modules &
+Verification test cases \\
+
+FR-CAM &
+Campaign management &
+Campaign module &
+Campaign functional tests \\
+
+FR-INVEST &
+Investment functionality &
+Investment module &
+Investment test cases \\
+
+FR-PROFIT &
+Profit declaration &
+Profit management module &
+Profit declaration tests \\
+
+FR-AUDIT &
+Audit and traceability &
+Audit and Trust Layer &
+Audit verification tests \\
+
+\bottomrule
+\end{tabularx}
+
+\caption{High-Level Functional Requirement Traceability}
+\label{tab:functional_traceability}
+
+\end{table}
+
+\subsubsection{Non-Functional Requirement Traceability}
+
+Non-functional requirements shall also be considered during system
+design and testing.
+
+\begin{table}[H]
+\centering
+\small
+
+\begin{tabularx}{\textwidth}{>{\bfseries}l X X}
+\toprule
+Requirement & Related System Area & Verification Method \\
+\midrule
+
+Security &
+Authentication, authorization, input validation &
+Security testing \\
+
+Performance &
+Backend, database, and frontend &
+Performance testing \\
+
+Usability &
+User interface &
+Usability testing \\
+
+Reliability &
+Application and database services &
+System and integration testing \\
+
+Maintainability &
+Software architecture and modular components &
+Code and architecture review \\
+
+\bottomrule
+\end{tabularx}
+
+\caption{Non-Functional Requirement Traceability}
+\label{tab:nonfunctional_traceability}
+
+\end{table}
+
+\subsubsection{Traceability During Development}
+
+The traceability information shall be maintained throughout the
+development process. Changes to important requirements should be
+reflected in the relevant design components, implementation tasks, and
+test cases.
+
+This approach will help reduce the possibility of implementing system
+features that cannot be traced back to an identified requirement and
+will support systematic verification of the final system.

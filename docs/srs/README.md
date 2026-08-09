@@ -2,7 +2,7 @@
 
 This folder contains all artefacts related to the **Dikaios Amanah** Software Requirements Specification (SRS).
 
-## Status: 🔄 IN PROGRESS
+## Status: Done
 
 ---
 
@@ -15,7 +15,7 @@ This folder contains all artefacts related to the **Dikaios Amanah** Software Re
 
 ---
 
-## SRS Structure (Planned)
+## SRS Structure
 
 The SRS will follow a standard structure, covering:
 

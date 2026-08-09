@@ -1,0 +1,257 @@
+% ====================================================
+% 6. System Design
+% ====================================================
+
+\subsection{System Architecture}
+
+Dikaios Amanah will follow a layered web application architecture designed
+to separate user interaction, application processing, persistent data
+management, document storage, and trust and audit functions.
+
+The major components of the proposed architecture are:
+
+\begin{itemize}
+    \item Presentation Layer
+    \item Application and API Layer
+    \item Database Layer
+    \item Document Storage
+    \item Authentication and Security Services
+    \item Permissioned Trust and Audit Layer
+\end{itemize}
+
+The overall architecture is intended to provide separation of
+responsibilities while allowing the individual components to communicate
+through defined interfaces.
+
+The high-level architecture can be represented as follows:
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \parbox{0.85\textwidth}{
+            \centering
+            \textbf{System Architecture Diagram Placeholder}\\[0.3cm]
+            React Frontend $\rightarrow$ Node/Express Backend
+            $\rightarrow$ PostgreSQL Database\\
+            Backend $\rightarrow$ Firebase Storage\\
+            Backend $\rightarrow$ Trust and Audit Layer
+        }
+    }
+    \caption{High-Level System Architecture}
+    \label{fig:system_architecture}
+\end{figure}
+
+The final architecture diagram will be added to the SRS after the
+individual system components and data relationships have been finalized.
+
+
+\subsection{Presentation Layer}
+
+The Presentation Layer provides the user-facing web interface of
+Dikaios Amanah.
+
+The planned frontend will use React and will provide role-specific
+interfaces for:
+
+\begin{itemize}
+    \item Business Owners
+    \item Investors
+    \item Administrators
+\end{itemize}
+
+The Presentation Layer will be responsible for displaying information,
+collecting user input, performing client-side validation where appropriate,
+and communicating with backend services through defined APIs.
+
+Business logic and security-sensitive authorization decisions shall not
+depend solely on client-side controls.
+
+
+\subsection{Application and API Layer}
+
+The Application Layer will provide the primary business logic of the
+system.
+
+The planned backend will use Node.js with Express.js to provide RESTful
+API services.
+
+The Application Layer will be responsible for:
+
+\begin{itemize}
+    \item Processing client requests.
+    \item Enforcing application business rules.
+    \item Authenticating users.
+    \item Authorizing role-specific operations.
+    \item Managing business workflows.
+    \item Processing investment-related operations.
+    \item Coordinating database operations.
+    \item Coordinating document storage operations.
+    \item Recording critical audit events.
+\end{itemize}
+
+The backend will act as the central coordination layer between the
+frontend and the system's persistent and supporting services.
+
+
+\subsection{Database Layer}
+
+PostgreSQL will be used as the primary relational database.
+
+The database will maintain persistent application information including:
+
+\begin{itemize}
+    \item User accounts.
+    \item Business information.
+    \item Investor information.
+    \item Verification records.
+    \item Investment campaigns.
+    \item Investment records.
+    \item Profit information.
+    \item Activity records.
+    \item References to uploaded documents.
+\end{itemize}
+
+The database design will maintain appropriate relationships and integrity
+constraints between related entities.
+
+The detailed database structure and Entity Relationship Diagram will be
+specified in the Data Requirements section.
+
+
+\subsection{Document Storage Component}
+
+Business verification and related processes may require supporting
+documents.
+
+The proposed system will use Firebase Storage as the designated document
+storage mechanism.
+
+The application database will store the relevant metadata and references
+required to identify uploaded documents, while the actual document files
+will be maintained by the designated storage service.
+
+The system will generate cryptographic integrity information for applicable
+documents so that authorized users can verify whether the document content
+has been altered.
+
+
+\subsection{Authentication and Authorization}
+
+Authentication will establish the identity of a user before protected
+system resources are accessed.
+
+The proposed system will use token-based authentication, with JWT planned
+for authenticated communication between the frontend and backend.
+
+Authorization will be implemented through Role-Based Access Control
+(RBAC).
+
+The three primary roles are:
+
+\begin{enumerate}
+    \item Business Owner
+    \item Investor
+    \item Administrator
+\end{enumerate}
+
+Role verification shall occur at the backend level before protected
+operations are executed.
+
+This prevents users from gaining access to restricted operations simply
+by manipulating the frontend interface.
+
+
+\subsection{Permissioned Trust and Audit Layer}
+
+Dikaios Amanah includes a Permissioned Trust and Audit Layer as an
+additional mechanism for improving transparency and traceability.
+
+The purpose of this layer is not to replace the primary PostgreSQL
+database. Instead, it is intended to maintain tamper-evident records of
+selected critical events.
+
+Events that may require audit recording include:
+
+\begin{itemize}
+    \item Business verification.
+    \item Contract approval.
+    \item Investment confirmation.
+    \item Profit declaration.
+    \item Document integrity verification.
+    \item Other critical administrative activities.
+\end{itemize}
+
+The trust layer is intended to provide an additional level of confidence
+that important historical events have not been silently altered.
+
+The MVP will implement the trust and audit concept at an appropriate level
+for academic demonstration. Production-scale distributed ledger
+deployment is outside the defined MVP scope.
+
+
+\subsection{System Component Interaction}
+
+The major system components will interact through the following general
+workflow:
+
+\begin{enumerate}
+    \item A user interacts with the React-based frontend.
+    \item The frontend sends a request to the backend API.
+    \item The backend authenticates and authorizes the request.
+    \item The backend applies the appropriate business rules.
+    \item Required information is retrieved from or stored in PostgreSQL.
+    \item If documents are involved, the backend communicates with the
+    designated document storage service.
+    \item If the operation is a critical auditable event, the appropriate
+    audit information is recorded.
+    \item The backend returns the result to the frontend.
+    \item The frontend presents the result to the user.
+\end{enumerate}
+
+
+\subsection{Deployment Architecture}
+
+The planned deployment architecture will separate the public frontend,
+backend application services, and persistent data services.
+
+The frontend may be deployed using a platform such as Vercel, while the
+backend may be deployed on a suitable cloud server or VPS. PostgreSQL and
+document storage will be provided through appropriate persistent cloud
+services.
+
+A conceptual deployment structure is:
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \parbox{0.85\textwidth}{
+            \centering
+            \textbf{Deployment Diagram Placeholder}\\[0.3cm]
+            User Browser $\rightarrow$ Frontend Hosting
+            $\rightarrow$ Backend Server\\
+            Backend Server $\rightarrow$ PostgreSQL\\
+            Backend Server $\rightarrow$ Document Storage\\
+            Backend Server $\rightarrow$ Trust and Audit Layer
+        }
+    }
+    \caption{Conceptual Deployment Architecture}
+    \label{fig:deployment_architecture}
+\end{figure}
+
+The final deployment diagram will be produced after the detailed
+deployment configuration has been finalized.
+
+
+\subsection{Design Principles}
+
+The system design will follow the following principles:
+
+\begin{itemize}
+    \item Separation of frontend and backend responsibilities.
+    \item Separation of application data and document storage.
+    \item Backend-controlled authorization.
+    \item Secure handling of authentication credentials.
+    \item Clear separation between operational data and audit records.
+    \item Modular design to support future expansion.
+    \item Traceability between requirements, implementation, and testing.
+\end{itemize}

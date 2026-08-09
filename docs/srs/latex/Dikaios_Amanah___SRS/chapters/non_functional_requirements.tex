@@ -1,0 +1,249 @@
+% ====================================================
+% 4. Non-Functional Requirements
+% ====================================================
+
+\subsection{Security Requirements}
+
+\subsubsection{NFR-SEC-01: Authentication Security}
+
+The system shall require users to authenticate before accessing protected
+system functions.
+
+\subsubsection{NFR-SEC-02: Role-Based Authorization}
+
+The system shall restrict access to protected resources according to the
+authenticated user's assigned role.
+
+\subsubsection{NFR-SEC-03: Password Protection}
+
+The system shall not store user passwords in plaintext. Passwords shall be
+protected using a secure password-hashing mechanism.
+
+\subsubsection{NFR-SEC-04: Secure Communication}
+
+The deployed system shall use HTTPS for communication between clients and
+server-side services.
+
+\subsubsection{NFR-SEC-05: Document Integrity}
+
+The system shall use cryptographic hashing to support verification of the
+integrity of applicable uploaded documents.
+
+\subsubsection{NFR-SEC-06: Audit Protection}
+
+The system shall provide mechanisms to detect unauthorized alteration of
+applicable audit records.
+
+\subsubsection{NFR-SEC-07: Sensitive Data Protection}
+
+The system shall restrict access to sensitive business, investor,
+verification, and administrative information to authorized users.
+
+
+% ====================================================
+% Performance Requirements
+% ====================================================
+
+\subsection{Performance Requirements}
+
+\subsubsection{NFR-PERF-01: Normal Request Response}
+
+Under the expected workload of the academic MVP, normal user requests
+should receive a response within an acceptable period that does not
+unnecessarily interrupt the user's workflow.
+
+\subsubsection{NFR-PERF-02: Dashboard Loading}
+
+The system should load normal user dashboard information without excessive
+delay under the expected academic demonstration workload.
+
+\subsubsection{NFR-PERF-03: Database Operations}
+
+The system shall use appropriate database queries and indexing strategies
+to support efficient retrieval of frequently accessed application data.
+
+\subsubsection{NFR-PERF-04: Document Operations}
+
+Document upload and retrieval operations should provide appropriate
+feedback to users while the operation is being processed.
+
+
+% ====================================================
+% Usability Requirements
+% ====================================================
+
+\subsection{Usability Requirements}
+
+\subsubsection{NFR-USE-01: Consistent Interface}
+
+The system shall provide a consistent user interface across the major
+platform modules.
+
+\subsubsection{NFR-USE-02: Role-Specific Navigation}
+
+The system shall provide navigation appropriate to the authenticated
+user's role.
+
+\subsubsection{NFR-USE-03: Form Validation}
+
+The system shall provide appropriate validation and feedback when users
+submit forms.
+
+\subsubsection{NFR-USE-04: Error Feedback}
+
+The system shall provide understandable error messages when an operation
+cannot be completed.
+
+\subsubsection{NFR-USE-05: Responsive Interface}
+
+The web interface should support common desktop, tablet, and mobile
+screen sizes.
+
+\subsubsection{NFR-USE-06: Status Visibility}
+
+The system shall clearly communicate important statuses such as
+verification, campaign approval, investment, and other relevant workflow
+states.
+
+
+% ====================================================
+% Reliability Requirements
+% ====================================================
+
+\subsection{Reliability Requirements}
+
+\subsubsection{NFR-REL-01: Data Consistency}
+
+The system shall maintain consistency between related application records.
+
+\subsubsection{NFR-REL-02: Transaction Integrity}
+
+The system shall ensure that supported investment and other critical
+operations either complete successfully or do not leave inconsistent
+application records.
+
+\subsubsection{NFR-REL-03: Error Handling}
+
+The system shall handle expected application errors without exposing
+sensitive implementation details to users.
+
+\subsubsection{NFR-REL-04: Data Persistence}
+
+Successfully stored application records shall remain available after
+normal application sessions have ended.
+
+
+% ====================================================
+% Maintainability Requirements
+% ====================================================
+
+\subsection{Maintainability Requirements}
+
+\subsubsection{NFR-MNT-01: Modular Architecture}
+
+The system shall maintain a modular separation between frontend,
+backend, database, and supporting services.
+
+\subsubsection{NFR-MNT-02: Source Code Organization}
+
+The source code shall follow a structured organization that allows
+individual components to be modified without unnecessary changes to
+unrelated components.
+
+\subsubsection{NFR-MNT-03: Version Control}
+
+The project source code and documentation shall be maintained using
+version control.
+
+\subsubsection{NFR-MNT-04: Documentation}
+
+Major system components and interfaces shall be documented sufficiently
+to support future maintenance and development.
+
+\subsubsection{NFR-MNT-05: Configuration Separation}
+
+Environment-specific configuration and sensitive credentials shall be
+kept separate from the application source code.
+
+
+% ====================================================
+% Scalability Requirements
+% ====================================================
+
+\subsection{Scalability Requirements}
+
+\subsubsection{NFR-SCL-01: Modular Expansion}
+
+The architecture should allow additional platform features to be added
+without requiring a complete redesign of the existing system.
+
+\subsubsection{NFR-SCL-02: User Growth}
+
+The system architecture should allow the number of users and application
+records to increase beyond the initial academic demonstration workload.
+
+\subsubsection{NFR-SCL-03: Service Expansion}
+
+The system should allow future integration with additional external
+services where required.
+
+
+% ====================================================
+% Availability Requirements
+% ====================================================
+
+\subsection{Availability Requirements}
+
+\subsubsection{NFR-AVL-01: Demonstration Availability}
+
+The deployed MVP should remain accessible during scheduled project
+demonstrations and evaluation periods.
+
+\subsubsection{NFR-AVL-02: Service Recovery}
+
+The system should provide a practical procedure for restoring the
+application after an expected service or deployment failure.
+
+\subsubsection{NFR-AVL-03: Dependency Availability}
+
+The system shall communicate appropriate errors when a required external
+service is temporarily unavailable.
+
+
+% ====================================================
+% Compatibility Requirements
+% ====================================================
+
+\subsection{Compatibility Requirements}
+
+\subsubsection{NFR-CMP-01: Browser Compatibility}
+
+The web application should operate correctly on current versions of
+commonly used modern web browsers.
+
+\subsubsection{NFR-CMP-02: Web-Based Access}
+
+The system shall provide access through a standard web browser without
+requiring a dedicated desktop application.
+
+
+% ====================================================
+% Auditability Requirements
+% ====================================================
+
+\subsection{Auditability Requirements}
+
+\subsubsection{NFR-AUD-01: Critical Event Traceability}
+
+Critical system activities shall provide sufficient information to
+identify the relevant event and its associated system entities.
+
+\subsubsection{NFR-AUD-02: Audit Record Integrity}
+
+The audit mechanism shall support detection of unauthorized modification
+of applicable records.
+
+\subsubsection{NFR-AUD-03: Authorized Audit Access}
+
+Audit information shall only be accessible to users with appropriate
+permissions.

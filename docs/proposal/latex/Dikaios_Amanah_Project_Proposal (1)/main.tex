@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----------------------------------------------------
+% Packages
+% ----------------------------------------------------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% ----------------------------------------------------
+% Document Formatting
+% ----------------------------------------------------
+\setstretch{1.5}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Dikaios Amanah}
+\fancyhead[R]{Project Proposal}
+\fancyfoot[C]{\thepage}
+
+% ----------------------------------------------------
+% Section Style
+% ----------------------------------------------------
+\titleformat{\section}
+{\Large\bfseries}
+{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}
+{\large\bfseries}
+{\thesubsection}{0.5em}{}
+
+% ----------------------------------------------------
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Cover Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/cover}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Proposal
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Executive Summary}
+\input{chapters/executive_summary}
+
+\section{Project Background}
+\input{chapters/background}
+
+\section{Problem Statement}
+\input{chapters/problem}
+
+\section{Proposed Solution}
+\input{chapters/solution}
+
+\section{System Architecture}
+\input{chapters/system_architecture}
+
+\section{Project Objectives}
+\input{chapters/objectives}
+
+\section{Project Scope}
+\input{chapters/scope}
+
+\section{Feasibility Study}
+\input{chapters/feasibility}
+
+\section{Work Breakdown Structure (WBS)}
+\input{chapters/wbs}
+
+\section{Project Timeline}
+\input{chapters/gantt}
+
+\section{Budget Estimation}
+\input{chapters/budget}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+
+\nocite{*}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,149 @@
+\subsection{Purpose}
+
+This Software Requirements Specification (SRS) defines the requirements of
+Dikaios Amanah, a secure, transparent, and ethically governed web-based
+platform designed to connect Small and Medium Enterprises (SMEs) with
+potential investors through a structured investment process.
+
+The purpose of this document is to establish a clear and detailed
+specification of the system's expected behavior, functional capabilities,
+non-functional requirements, user interactions, data requirements, system
+constraints, and testing requirements. The SRS will serve as the primary
+reference for the design, development, testing, and evaluation of the
+Dikaios Amanah system.
+
+The system is designed around the Musharakah partnership model, where
+investment participants share profits and losses according to mutually
+agreed terms. The proposed platform emphasizes transparency, verification,
+security, and traceability throughout the investment lifecycle.
+
+
+\subsection{Scope}
+
+Dikaios Amanah will provide a web-based environment through which verified
+business owners can present eligible SME investment opportunities and
+investors can review and participate in those opportunities.
+
+The system will support three primary user roles:
+
+\begin{itemize}
+    \item Business Owner
+    \item Investor
+    \item Administrator
+\end{itemize}
+
+Business owners will be able to create and manage business profiles,
+submit required verification information, upload supporting documents,
+create investment campaigns after approval, provide business progress
+information, and manage campaign-related information.
+
+Investors will be able to create accounts, complete the required
+verification process, browse approved investment campaigns, review
+business and campaign information, participate in simulated investment
+transactions, and monitor their investment portfolio and history.
+
+Administrators will be responsible for platform-level management activities
+including user verification, business approval, document review, campaign
+moderation, risk assessment, user management, and monitoring of system
+activity.
+
+The system will also provide an audit and trust mechanism for important
+system events. The proposed architecture includes a Permissioned Trust and
+Audit Layer intended to improve transparency and provide tamper-evident
+records of critical activities.
+
+The Minimum Viable Product (MVP) will focus on the core platform workflow
+required for academic demonstration and evaluation. Real banking
+integration, live payment processing, production-level regulatory
+implementation, AI-based fraud detection, AI-powered risk prediction,
+production Hyperledger Fabric deployment, and automated smart-contract
+execution are outside the scope of the MVP.
+
+
+\subsection{Intended Audience}
+
+This document is intended for the following audiences:
+
+\begin{itemize}
+    \item Project developer and system designer
+    \item Software Engineering course instructor and evaluator
+    \item Software testing and quality assurance personnel
+    \item Project stakeholders
+    \item Future developers who may extend the system
+\end{itemize}
+
+The document provides the requirements and technical specifications needed
+to understand the expected behavior and structure of the proposed system.
+
+
+\subsection{Product Overview}
+
+Dikaios Amanah is intended to function as a technology-enabled platform
+connecting verified SMEs seeking investment with verified investors seeking
+structured partnership-based investment opportunities.
+
+The proposed system follows the Musharakah principle rather than
+interest-based lending. The platform is designed to provide a transparent
+investment lifecycle beginning with registration and verification and
+continuing through campaign approval, investment participation, agreement
+management, business reporting, profit declaration, and profit
+distribution.
+
+The system architecture proposed in the project consists of a web
+frontend, backend services, a relational database, secure document
+storage, authentication and security mechanisms, and a Permissioned Trust
+and Audit Layer.
+
+The application layer is planned around React for frontend development and
+Node.js with Express.js for backend services. PostgreSQL will be used for
+relational data management, while Firebase Storage is intended for secure
+document storage. Authentication and authorization mechanisms will protect
+user accounts and role-specific functionality.
+
+Critical events and records will be subject to audit mechanisms so that
+important activities can be reviewed by authorized users. The trust and
+audit mechanism is intended to complement the primary application database
+rather than replace it.
+
+
+\subsection{Definitions and Acronyms}
+
+\begin{description}
+
+    \item[SME] Small and Medium Enterprise.
+
+    \item[MVP] Minimum Viable Product.
+
+    \item[KYC] Know Your Customer.
+
+    \item[RBAC] Role-Based Access Control.
+
+    \item[JWT] JSON Web Token.
+
+    \item[API] Application Programming Interface.
+
+    \item[HTTPS] Hypertext Transfer Protocol Secure.
+
+    \item[SHA-256] Secure Hash Algorithm 256-bit.
+
+    \item[SRS] Software Requirements Specification.
+
+    \item[UML] Unified Modeling Language.
+
+    \item[SDLC] Software Development Life Cycle.
+
+    \item[ERD] Entity Relationship Diagram.
+
+\end{description}
+
+
+\subsection{References}
+
+The primary project-specific source for this Software Requirements
+Specification is the Dikaios Amanah Project Proposal. The proposal
+establishes the project's background, objectives, scope, proposed solution,
+system architecture, technology stack, feasibility considerations,
+limitations, and planned development activities.
+
+Additional technical and domain references are listed in the References
+section of this document.

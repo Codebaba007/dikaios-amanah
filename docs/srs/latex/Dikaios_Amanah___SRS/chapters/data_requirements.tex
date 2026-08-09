@@ -1,0 +1,189 @@
+\subsection{Data Requirements}
+
+The Dikaios Amanah system requires structured and reliable data to support
+user management, business verification, investment campaign management,
+investment participation, profit reporting, notifications, and system
+auditing. The system shall store and manage the following major categories
+of data.
+
+\subsubsection{User Data}
+
+The system shall maintain information required to identify and manage
+registered users. User data shall include:
+
+\begin{itemize}
+    \item Unique user identifier
+    \item Full name
+    \item Email address
+    \item Authentication credentials or securely stored password hash
+    \item User role
+    \item Account status
+    \item Account creation date and time
+\end{itemize}
+
+The system shall distinguish between the primary user roles of Business
+Owner, Investor, and Administrator.
+
+\subsubsection{Business Data}
+
+The system shall maintain information about businesses registered on the
+platform. Business data shall include:
+
+\begin{itemize}
+    \item Unique business identifier
+    \item Business name
+    \item Business description
+    \item Industry or business category
+    \item Business ownership information
+    \item Verification status
+    \item Business registration information where applicable
+    \item Creation and update timestamps
+\end{itemize}
+
+\subsubsection{Verification Data}
+
+The system shall maintain information associated with business and user
+verification processes. Verification data shall include:
+
+\begin{itemize}
+    \item Unique verification identifier
+    \item Verification type
+    \item Related business or user
+    \item Verification status
+    \item Submission date and time
+    \item Review date and time
+    \item Reviewing administrator
+    \item Verification remarks where applicable
+\end{itemize}
+
+The system shall preserve the status of verification requests so that
+authorized users can determine whether a verification request is pending,
+approved, or rejected.
+
+\subsubsection{Document Data}
+
+The system shall maintain metadata associated with documents submitted
+during verification. Document data shall include:
+
+\begin{itemize}
+    \item Unique document identifier
+    \item Related verification record
+    \item File name
+    \item File type
+    \item Storage reference
+    \item Document integrity information where applicable
+    \item Upload date and time
+\end{itemize}
+
+The system shall restrict access to verification documents according to
+the user's authorization level.
+
+\subsubsection{Investment Campaign Data}
+
+The system shall maintain information about investment campaigns created
+by verified businesses. Campaign data shall include:
+
+\begin{itemize}
+    \item Unique campaign identifier
+    \item Related business
+    \item Campaign title
+    \item Campaign description
+    \item Funding goal
+    \item Current funding amount
+    \item Campaign status
+    \item Creation date and time
+    \item Approval information where applicable
+\end{itemize}
+
+Only campaigns satisfying the required verification and approval
+conditions shall be made available for participation.
+
+\subsubsection{Investment Data}
+
+The system shall maintain records of investment activities performed by
+investors. Investment data shall include:
+
+\begin{itemize}
+    \item Unique investment identifier
+    \item Related investor
+    \item Related campaign
+    \item Investment amount
+    \item Investment status
+    \item Investment date and time
+\end{itemize}
+
+For the scope of the academic project, investment activities represent
+the system's simulated investment functionality rather than real-world
+financial transactions.
+
+\subsubsection{Profit Declaration Data}
+
+The system shall maintain information submitted by businesses regarding
+their declared profits. Profit declaration data shall include:
+
+\begin{itemize}
+    \item Unique profit declaration identifier
+    \item Related business
+    \item Declared profit amount
+    \item Reporting period
+    \item Declaration date and time
+    \item Relevant status or review information where applicable
+\end{itemize}
+
+\subsubsection{Audit Data}
+
+The system shall maintain audit records for significant system activities
+to support transparency and accountability. Audit data shall include:
+
+\begin{itemize}
+    \item Unique audit record identifier
+    \item User associated with the activity
+    \item Event type
+    \item Related entity identifier where applicable
+    \item Date and time of the event
+    \item Integrity information where applicable
+\end{itemize}
+
+Audit records shall be protected from unauthorized modification or
+deletion.
+
+\subsubsection{Notification Data}
+
+The system shall maintain notification information for communicating
+important system events to users. Notification data shall include:
+
+\begin{itemize}
+    \item Unique notification identifier
+    \item Recipient user
+    \item Notification type
+    \item Notification message
+    \item Read or unread status
+    \item Creation date and time
+\end{itemize}
+
+\subsubsection{Data Integrity and Security Requirements}
+
+The system shall maintain the integrity and confidentiality of stored
+data. Sensitive information shall not be stored in plaintext where
+secure storage mechanisms are required.
+
+The system shall enforce appropriate access control so that users can
+only access data permitted by their roles and responsibilities.
+
+The system shall validate data submitted by users before storing it.
+Required fields shall be checked for completeness, and invalid or
+inconsistent data shall be rejected.
+
+The system shall maintain appropriate timestamps for important records
+to support traceability and auditing.
+
+\subsubsection{Data Retention and Backup}
+
+Important system records shall be retained for the duration required by
+the project's operational and academic scope. The system design shall
+allow appropriate backup and recovery mechanisms to be introduced for
+persistent data.
+
+As this project is developed as a Software Engineering Lab project,
+production-level financial data retention and regulatory requirements are
+outside the current implementation scope.

@@ -1,0 +1,244 @@
+% ====================================================
+% 5. External Interface Requirements
+% ====================================================
+
+\subsection{User Interface Requirements}
+
+\subsubsection{UI-01: Web-Based Interface}
+
+The system shall provide a web-based graphical user interface through which
+Business Owners, Investors, and Administrators can access functions
+appropriate to their roles.
+
+\subsubsection{UI-02: Authentication Interface}
+
+The system shall provide user interfaces for registration, login, and
+account-related operations.
+
+\subsubsection{UI-03: Business Owner Interface}
+
+The Business Owner interface shall provide access to functions including:
+
+\begin{itemize}
+    \item Business profile management.
+    \item Verification submission.
+    \item Document submission.
+    \item Verification status.
+    \item Campaign creation and management.
+    \item Campaign progress.
+    \item Business progress reporting.
+    \item Profit declaration.
+\end{itemize}
+
+\subsubsection{UI-04: Investor Interface}
+
+The Investor interface shall provide access to functions including:
+
+\begin{itemize}
+    \item Investor dashboard.
+    \item Campaign discovery.
+    \item Business and campaign information.
+    \item Risk information.
+    \item Simulated investment.
+    \item Investment confirmation.
+    \item Portfolio management.
+    \item Investment history.
+    \item Profit information.
+\end{itemize}
+
+\subsubsection{UI-05: Administrator Interface}
+
+The Administrator interface shall provide access to functions including:
+
+\begin{itemize}
+    \item User management.
+    \item Business verification.
+    \item Document review.
+    \item Risk assessment management.
+    \item Campaign moderation.
+    \item Campaign approval.
+    \item Platform activity monitoring.
+    \item Platform reporting.
+    \item Audit information.
+\end{itemize}
+
+\subsubsection{UI-06: Navigation}
+
+The interface shall provide navigation appropriate to the authenticated
+user's role and shall prevent users from accessing functions outside their
+authorized permissions.
+
+\subsubsection{UI-07: Form Validation}
+
+Input forms shall provide appropriate validation and feedback for invalid
+or incomplete information.
+
+\subsubsection{UI-08: Status Indicators}
+
+The interface shall clearly display relevant workflow states, including
+verification, approval, campaign, investment, and other applicable
+statuses.
+
+\subsubsection{UI-09: Feedback Messages}
+
+The system shall provide appropriate success, warning, and error messages
+after user actions.
+
+\subsubsection{UI-10: Responsive Design}
+
+The interface should adapt to commonly used desktop, tablet, and mobile
+screen sizes.
+
+
+% ====================================================
+% Software Interfaces
+% ====================================================
+
+\subsection{Software Interfaces}
+
+\subsubsection{SI-01: Frontend and Backend Interface}
+
+The frontend application shall communicate with backend services through
+defined application programming interfaces (APIs).
+
+\subsubsection{SI-02: RESTful API}
+
+The backend shall provide RESTful API services for communication between
+the web frontend and application services.
+
+\subsubsection{SI-03: Authentication Interface}
+
+The authentication mechanism shall provide the frontend with an
+authenticated session or token that can be used when accessing protected
+backend resources.
+
+\subsubsection{SI-04: Database Interface}
+
+The backend shall communicate with the PostgreSQL database through an
+appropriate database access mechanism.
+
+The database interface shall support operations required for managing
+users, businesses, campaigns, investments, verification information,
+activity records, and other application data.
+
+\subsubsection{SI-05: Document Storage Interface}
+
+The backend shall communicate with the designated secure document storage
+service for storing and retrieving permitted uploaded documents.
+
+\subsubsection{SI-06: Trust and Audit Interface}
+
+The application services shall communicate with the Permissioned Trust and
+Audit Layer when critical events require recording or verification.
+
+\subsubsection{SI-07: External Service Failure Handling}
+
+The system shall provide appropriate error handling when a required
+external service is unavailable or fails to respond.
+
+
+% ====================================================
+% Communication Interfaces
+% ====================================================
+
+\subsection{Communication Interfaces}
+
+\subsubsection{CI-01: HTTPS Communication}
+
+The deployed application shall use HTTPS for communication between clients
+and server-side services.
+
+\subsubsection{CI-02: Client-Server Communication}
+
+The frontend shall communicate with the backend through HTTP-based API
+requests.
+
+\subsubsection{CI-03: API Data Format}
+
+The application API should use JSON as the primary format for structured
+request and response data.
+
+\subsubsection{CI-04: Authentication Headers}
+
+Protected API requests shall include the required authentication
+information so that the backend can verify the identity and authorization
+of the requesting user.
+
+\subsubsection{CI-05: Error Responses}
+
+The backend shall return structured error responses that allow the
+frontend to provide appropriate feedback to users.
+
+
+% ====================================================
+% Hardware Interfaces
+% ====================================================
+
+\subsection{Hardware Interfaces}
+
+Dikaios Amanah does not require specialized hardware for normal operation.
+
+Users will access the system using standard computing devices such as
+desktop computers, laptops, tablets, or smartphones with compatible web
+browsers and network connectivity.
+
+The academic MVP does not require dedicated hardware interfaces or
+embedded devices.
+
+
+% ====================================================
+% Storage Interfaces
+% ====================================================
+
+\subsection{Storage Interfaces}
+
+\subsubsection{ST-01: Relational Data Storage}
+
+The system shall use PostgreSQL as the primary relational database for
+persistent application data.
+
+\subsubsection{ST-02: Document Storage}
+
+Uploaded documents shall be stored using the designated secure cloud
+storage mechanism.
+
+\subsubsection{ST-03: Document Integrity Information}
+
+The system shall maintain the required cryptographic integrity information
+associated with applicable uploaded documents.
+
+\subsubsection{ST-04: Audit Data}
+
+The system shall maintain information necessary to associate audit events
+with the relevant users, entities, and system activities.
+
+
+% ====================================================
+% Interface Security
+% ====================================================
+
+\subsection{Interface Security Requirements}
+
+\subsubsection{IS-01: Protected Endpoints}
+
+Backend endpoints containing protected functionality shall require
+appropriate authentication and authorization.
+
+\subsubsection{IS-02: Role Verification}
+
+The backend shall verify the user's authorized role before executing
+role-restricted operations.
+
+\subsubsection{IS-03: Secure Data Transmission}
+
+Sensitive information transmitted between the client and deployed backend
+shall be protected through HTTPS.
+
+\subsubsection{IS-04: Input Validation}
+
+The backend shall validate incoming data before processing or storing it.
+
+\subsubsection{IS-05: Unauthorized Access Handling}
+
+The system shall reject requests that do not satisfy the required
+authentication or authorization conditions.

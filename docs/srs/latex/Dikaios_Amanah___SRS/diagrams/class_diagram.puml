@@ -1,0 +1,143 @@
+@startuml
+
+title Dikaios Amanah - Class Diagram
+
+left to right direction
+
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam nodesep 25
+skinparam ranksep 25
+
+' =========================
+' USER HIERARCHY
+' =========================
+
+abstract class User {
+    +userId : UUID
+    +name : String
+    +email : String
+    +passwordHash : String
+    +status : String
+    +createdAt : DateTime
+}
+
+class BusinessOwner {
+    +businessOwnerId : UUID
+}
+
+class Investor {
+    +investorId : UUID
+    +verificationStatus : String
+}
+
+class Administrator {
+    +administratorId : UUID
+}
+
+User <|-- BusinessOwner
+User <|-- Investor
+User <|-- Administrator
+
+
+' =========================
+' BUSINESS DOMAIN
+' =========================
+
+class Business {
+    +businessId : UUID
+    +businessName : String
+    +description : String
+    +industry : String
+    +verificationStatus : String
+    +createdAt : DateTime
+}
+
+class Campaign {
+    +campaignId : UUID
+    +title : String
+    +description : String
+    +fundingGoal : Decimal
+    +currentFunding : Decimal
+    +status : String
+    +createdAt : DateTime
+}
+
+class Verification {
+    +verificationId : UUID
+    +verificationType : String
+    +status : String
+    +submittedAt : DateTime
+    +reviewedAt : DateTime
+}
+
+class Document {
+    +documentId : UUID
+    +fileName : String
+    +fileType : String
+    +storageReference : String
+    +integrityHash : String
+    +uploadedAt : DateTime
+}
+
+class ProfitDeclaration {
+    +profitId : UUID
+    +amount : Decimal
+    +period : String
+    +declaredAt : DateTime
+}
+
+
+' =========================
+' INVESTMENT DOMAIN
+' =========================
+
+class Investment {
+    +investmentId : UUID
+    +amount : Decimal
+    +status : String
+    +investedAt : DateTime
+}
+
+class AuditRecord {
+    +auditId : UUID
+    +eventType : String
+    +entityId : UUID
+    +timestamp : DateTime
+    +integrityHash : String
+}
+
+class Notification {
+    +notificationId : UUID
+    +message : String
+    +type : String
+    +isRead : Boolean
+    +createdAt : DateTime
+}
+
+
+' =========================
+' RELATIONSHIPS
+' =========================
+
+BusinessOwner "1" -- "1..*" Business : owns
+
+Business "1" -- "0..*" Campaign : creates
+
+Business "1" -- "0..*" Verification : undergoes
+
+Administrator "1" -- "0..*" Verification : reviews
+
+Verification "1" -- "1..*" Document : contains
+
+Business "1" -- "0..*" ProfitDeclaration : declares
+
+Investor "1" -- "0..*" Investment : makes
+
+Campaign "1" -- "0..*" Investment : receives
+
+User "1" -- "0..*" AuditRecord : generates
+
+User "1" -- "0..*" Notification : receives
+
+@enduml

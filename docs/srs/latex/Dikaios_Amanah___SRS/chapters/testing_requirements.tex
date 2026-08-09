@@ -1,0 +1,147 @@
+\subsection{Testing Requirements}
+
+Testing shall be performed to verify that Dikaios Amanah satisfies its
+functional and non-functional requirements. The testing process shall
+focus on the correctness of the major system workflows, role-based
+access control, data validation, security mechanisms, and system
+integration.
+
+\subsubsection{Unit Testing}
+
+Individual software components and functions shall be tested
+independently to verify that they produce the expected results.
+
+Unit testing should cover important backend services, validation
+functions, authentication-related functions, and other critical
+application logic.
+
+\subsubsection{Integration Testing}
+
+Integration testing shall verify that different system components
+communicate correctly.
+
+The following integrations shall be considered:
+
+\begin{itemize}
+    \item Frontend and backend API communication.
+    \item Backend and PostgreSQL database communication.
+    \item Backend and document storage.
+    \item Authentication and authorization services.
+    \item Backend and the trust and audit layer.
+\end{itemize}
+
+\subsubsection{System Testing}
+
+System testing shall evaluate the complete application as an integrated
+system.
+
+Testing shall cover the major workflows of Business Owners, Investors,
+and Administrators, including business verification, campaign
+management, investment simulation, profit declaration, and administrative
+operations.
+
+\subsubsection{Functional Testing}
+
+Functional tests shall verify that the implemented system behavior
+matches the functional requirements.
+
+Representative functional test cases shall include:
+
+\begin{itemize}
+    \item User registration and login.
+    \item Role-based access control.
+    \item Business profile creation and management.
+    \item Business verification submission.
+    \item Document upload and management.
+    \item Campaign creation and approval.
+    \item Campaign browsing.
+    \item Simulated investment.
+    \item Portfolio and investment history.
+    \item Profit declaration.
+    \item Administrative review and monitoring.
+    \item Audit record generation.
+\end{itemize}
+
+\subsubsection{Security Testing}
+
+Security testing shall verify that protected system resources cannot be
+accessed by unauthorized users.
+
+Security testing shall include:
+
+\begin{itemize}
+    \item Authentication testing.
+    \item Authorization and role testing.
+    \item Invalid credential testing.
+    \item Protected endpoint testing.
+    \item Input validation testing.
+    \item Unauthorized document access testing.
+    \item Session or token validation testing.
+\end{itemize}
+
+\subsubsection{Usability Testing}
+
+Usability testing shall evaluate whether users can understand and
+complete the major system workflows using the provided interface.
+
+The primary user roles shall be considered during usability testing,
+including Business Owners, Investors, and Administrators.
+
+\subsubsection{Performance Testing}
+
+Basic performance testing shall be performed to evaluate the system's
+response under representative academic testing conditions.
+
+Testing may include:
+
+\begin{itemize}
+    \item API response time.
+    \item Page loading behavior.
+    \item Database query performance.
+    \item Response behavior under multiple simulated requests.
+\end{itemize}
+
+Production-scale load and stress testing are outside the current
+academic project scope.
+
+\subsubsection{Negative Testing}
+
+The system shall be tested with invalid, incomplete, or unexpected input
+to verify that errors are handled appropriately.
+
+Examples include:
+
+\begin{itemize}
+    \item Invalid login credentials.
+    \item Missing required fields.
+    \item Invalid document types.
+    \item Invalid investment amounts.
+    \item Unauthorized operations.
+    \item Invalid campaign information.
+\end{itemize}
+
+\subsubsection{User Acceptance Testing}
+
+User Acceptance Testing (UAT) shall verify that the system satisfies
+the expected workflows from the perspective of its intended users.
+
+Representative scenarios shall be executed for the Business Owner,
+Investor, and Administrator roles.
+
+\subsubsection{Test Documentation}
+
+Test cases shall document the following information where applicable:
+
+\begin{itemize}
+    \item Test case identifier.
+    \item Related requirement.
+    \item Test objective.
+    \item Preconditions.
+    \item Test input.
+    \item Expected result.
+    \item Actual result.
+    \item Test status.
+\end{itemize}
+
+Test results shall be used to identify defects and verify that corrective
+changes satisfy the corresponding requirements.

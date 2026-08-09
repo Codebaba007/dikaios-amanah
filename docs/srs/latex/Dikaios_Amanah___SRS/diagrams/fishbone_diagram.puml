@@ -1,0 +1,73 @@
+@startuml
+
+title Dikaios Amanah - Fishbone (Ishikawa) Diagram
+
+left to right direction
+
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam rectangle {
+    BorderColor Black
+    BackgroundColor White
+}
+
+rectangle "Information" as INFO
+rectangle "Verification" as VERIFY
+rectangle "Transparency" as TRANS
+rectangle "Security" as SECURITY
+rectangle "Process" as PROCESS
+rectangle "Investor Awareness" as AWARE
+
+rectangle "Lack of Trust and Transparency\nin Small-Business Investment" as EFFECT
+
+' Information causes
+rectangle "Incomplete business information" as INFO1
+rectangle "Limited financial visibility" as INFO2
+
+INFO1 --> INFO
+INFO2 --> INFO
+
+' Verification causes
+rectangle "Difficult business verification" as VERIFY1
+rectangle "Unverified documents" as VERIFY2
+
+VERIFY1 --> VERIFY
+VERIFY2 --> VERIFY
+
+' Transparency causes
+rectangle "Unclear investment information" as TRANS1
+rectangle "Limited progress reporting" as TRANS2
+
+TRANS1 --> TRANS
+TRANS2 --> TRANS
+
+' Security causes
+rectangle "Risk of fraudulent information" as SECURITY1
+rectangle "Weak auditability" as SECURITY2
+
+SECURITY1 --> SECURITY
+SECURITY2 --> SECURITY
+
+' Process causes
+rectangle "Manual verification processes" as PROCESS1
+rectangle "Fragmented investment workflow" as PROCESS2
+
+PROCESS1 --> PROCESS
+PROCESS2 --> PROCESS
+
+' Investor awareness causes
+rectangle "Limited investor knowledge" as AWARE1
+rectangle "Difficulty assessing opportunities" as AWARE2
+
+AWARE1 --> AWARE
+AWARE2 --> AWARE
+
+' Main branches
+INFO --> EFFECT
+VERIFY --> EFFECT
+TRANS --> EFFECT
+SECURITY --> EFFECT
+PROCESS --> EFFECT
+AWARE --> EFFECT
+
+@enduml

@@ -1,0 +1,154 @@
+\subsection{Overview}
+
+Dikaios Amanah is proposed as a secure web-based investment platform designed to connect verified Small and Medium Enterprises (SMEs) with verified retail investors through a transparent and ethically governed investment ecosystem. The platform follows the Islamic finance principle of Musharakah, where participating parties share both profits and losses based on mutually agreed terms rather than fixed interest payments.
+
+Unlike traditional crowdfunding systems, Dikaios Amanah focuses on building trust through structured verification, secure document management, transparent reporting, and a Permissioned Trust and Audit Layer. The proposed system acts as a technology-enabled intermediary that facilitates responsible investment while improving accountability throughout the investment lifecycle.
+
+%----------------------------------------------------
+
+\subsection{System Overview}
+
+The platform consists of three primary stakeholders:
+
+\begin{itemize}
+\item Business Owners
+\item Investors
+\item System Administrators
+\end{itemize}
+
+Each stakeholder interacts with the system according to predefined roles and permissions enforced through secure authentication and authorization mechanisms.
+
+The proposed system provides separate dashboards tailored to each user category, ensuring that users only access functions relevant to their responsibilities.
+
+%----------------------------------------------------
+
+\subsection{Business Owner Module}
+
+Business owners use the platform to seek investment for business expansion.
+
+The module provides the following capabilities:
+
+\begin{itemize}
+\item Business registration
+\item Identity verification
+\item Business profile management
+\item Secure document upload
+\item Investment campaign creation
+\item Progress reporting
+\item Profit declaration
+\item Investor communication
+\end{itemize}
+
+Before becoming visible to investors, every business must successfully complete verification and administrative review.
+
+%----------------------------------------------------
+
+\subsection{Investor Module}
+
+The investor module enables individuals to discover verified investment opportunities while maintaining transparency throughout the investment process.
+
+Major features include:
+
+\begin{itemize}
+\item Investor registration
+\item Know Your Customer (KYC) verification
+\item Business discovery
+\item Risk score review
+\item Investment management
+\item Portfolio monitoring
+\item Profit tracking
+\item Investment history
+\end{itemize}
+
+Investors can evaluate businesses using verified information before making investment decisions.
+
+%----------------------------------------------------
+
+\subsection{Administrator Module}
+
+The administrator oversees platform integrity and operational management.
+
+Responsibilities include:
+
+\begin{itemize}
+\item User verification
+\item Business approval
+\item Document validation
+\item Risk assessment management
+\item Campaign moderation
+\item Audit monitoring
+\item User management
+\item Platform reporting
+\end{itemize}
+
+Administrative actions are recorded to improve accountability and transparency.
+
+%----------------------------------------------------
+
+\subsection{System Workflow}
+
+The proposed investment workflow consists of the following stages:
+
+\begin{enumerate}
+\item Business registration.
+\item Identity and document verification.
+\item Risk assessment.
+\item Administrative approval.
+\item Campaign publication.
+\item Investor review and funding.
+\item Musharakah agreement confirmation.
+\item Business operation and progress reporting.
+\item Profit declaration.
+\item Profit distribution.
+\item Campaign completion.
+\end{enumerate}
+
+This structured workflow ensures that all investment activities are documented and performed in a transparent manner.
+
+%----------------------------------------------------
+
+\subsection{Security Mechanisms}
+
+Security forms one of the fundamental design principles of Dikaios Amanah.
+
+The proposed platform incorporates multiple layers of protection, including:
+
+\begin{itemize}
+\item JWT-based authentication
+\item Role-Based Access Control (RBAC)
+\item Secure password hashing using bcrypt
+\item SHA-256 document hashing
+\item Secure cloud document storage
+\item Input validation
+\item Activity logging
+\item Session management
+\end{itemize}
+
+Rather than relying on a single security mechanism, the system adopts a layered security approach to protect user accounts, business information, and investment records.
+
+%----------------------------------------------------
+
+\subsection{Permissioned Trust and Audit Layer}
+
+To strengthen trust between stakeholders, the proposed platform incorporates a Permissioned Trust and Audit Layer.
+
+Instead of storing operational business data on a blockchain, the system records cryptographic hashes and timestamps of critical events, including:
+
+\begin{itemize}
+\item Business verification
+\item Contract approval
+\item Investment confirmation
+\item Profit declaration
+\item Audit records
+\item Document integrity verification
+\end{itemize}
+
+The blockchain functions as an immutable audit mechanism, while PostgreSQL remains responsible for day-to-day application data. This separation provides transparency and tamper-evident verification without compromising system performance.
+
+%----------------------------------------------------
+
+\subsection{Expected Outcome}
+
+The proposed platform establishes a secure and transparent digital ecosystem that enables SMEs to access ethical investment while allowing investors to participate confidently through verified business information and structured partnership agreements.
+
+By combining modern web technologies with secure software engineering practices, Dikaios Amanah aims to demonstrate a practical and scalable solution for ethical SME investment that is achievable as a university-level Minimum Viable Product while providing a strong foundation for future commercial deployment.

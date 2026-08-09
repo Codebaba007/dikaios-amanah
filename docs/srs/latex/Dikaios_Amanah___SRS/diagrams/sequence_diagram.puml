@@ -1,0 +1,75 @@
+@startuml
+
+title Dikaios Amanah - Business Verification Sequence Diagram
+
+hide footbox
+
+skinparam shadowing false
+skinparam sequence {
+    MessageAlign center
+    ParticipantPadding 20
+    BoxPadding 8
+    ArrowThickness 1
+}
+
+actor "Business Owner" as BO
+actor "Administrator" as ADMIN
+
+participant "Web Interface" as UI
+participant "Backend API" as API
+participant "Verification Service" as VS
+database "Database" as DB
+participant "Audit Service" as AUDIT
+participant "Notification Service" as NOTIFY
+
+
+== Submit Verification ==
+
+BO -> UI : Submit business verification
+UI -> API : Submit verification data
+API -> VS : Validate request
+VS -> DB : Store verification
+DB --> VS : Verification ID
+
+VS -> AUDIT : Record submission
+AUDIT -> DB : Store audit record
+
+VS --> API : Submission successful
+API --> UI : Verification submitted
+UI --> BO : Show confirmation
+
+
+== Administrator Review ==
+
+ADMIN -> UI : Open pending verification
+UI -> API : Request verification
+API -> VS : Retrieve verification
+VS -> DB : Query verification
+DB --> VS : Verification details
+VS --> API : Verification details
+API --> UI : Display verification
+UI --> ADMIN : Show verification
+
+
+== Review Decision ==
+
+ADMIN -> UI : Approve or reject
+UI -> API : Submit decision
+API -> VS : Process decision
+
+VS -> DB : Update verification status
+DB --> VS : Update successful
+
+VS -> AUDIT : Record review decision
+AUDIT -> DB : Store audit record
+
+VS -> NOTIFY : Send verification result
+NOTIFY -> DB : Store notification
+
+VS --> API : Review completed
+API --> UI : Display result
+UI --> ADMIN : Show completion status
+
+NOTIFY --> BO : Verification result notification
+
+@enduml
