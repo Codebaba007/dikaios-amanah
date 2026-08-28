@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import {
+  PageHeader, SectionHeader, StatusBadge, VerificationBadge,
+  ProgressBar, EmptyState, LoadingState, ErrorState, TrustIndicator
+} from '../../components/UI';
 
 const BusinessDashboard = () => {
   const { t } = useTranslation();
   const [business, setBusiness] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchBusiness = async () => {
@@ -16,80 +21,162 @@ const BusinessDashboard = () => {
         if (res.ok) {
           const data = await res.json();
           setBusiness(data);
+        } else if (res.status !== 404) {
+          setError(t('common.error'));
         }
       } catch (err) {
+        setError(t('common.error'));
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
     fetchBusiness();
-  }, []);
+  }, [t]);
 
-  if (loading) return <div className="container" style={{ marginTop: '2rem' }}>Loading...</div>;
+  if (loading) return <div className="container"><LoadingState /></div>;
+  if (error) return <div className="container" style={{ marginTop: '2rem' }}><ErrorState message={error} /></div>;
 
   if (!business) {
     return (
-      <div className="container flex-col items-center animate-fade-in" style={{ marginTop: '4rem', textAlign: 'center' }}>
-        <h2>{t('business.dashboard')}</h2>
-        <p>{t('business.status_not_submitted')}</p>
-        <Link to="/business/create" className="btn btn-primary" style={{ marginTop: '1rem' }}>
-          {t('business.create_profile')}
-        </Link>
+      <div className="container">
+        <PageHeader
+          eyebrow={t('business.dashboard')}
+          title={t('business.status_not_submitted')}
+          description={t('business.workspace_intro')}
+          actions={<Link to="/business/create" className="btn btn-primary">{t('business.create_profile')}</Link>}
+        />
+        <EmptyState
+          title={t('business.status_not_submitted')}
+          description={t('business.no_campaigns_description')}
+          action={<Link to="/business/create" className="btn btn-primary">{t('business.create_profile')}</Link>}
+        />
       </div>
     );
   }
 
-  const getStatusBadge = (status) => {
-    switch (status) {
-      case 'APPROVED': return <span className="badge badge-success">{t('business.status_approved')}</span>;
-      case 'PENDING': return <span className="badge badge-warning">{t('business.status_pending')}</span>;
-      case 'REJECTED': return <span className="badge badge-error">{t('business.status_rejected')}</span>;
-      default: return <span className="badge">{status}</span>;
-    }
+  const vs = business.verificationStatus;
+
+  const verificationMessage = () => {
+    if (vs === 'APPROVED') return t('business.verification_approved_body');
+    if (vs === 'REJECTED') return t('business.verification_rejected_body');
+    return t('business.verification_pending_body');
+  };
+
+  const nextAction = () => {
+    if (vs === 'APPROVED') return t('business.next_action_approved');
+    return t('business.next_action_pending');
   };
 
   return (
-    <div className="container animate-fade-in" style={{ marginTop: '2rem' }}>
-      <div className="flex justify-between items-center" style={{ marginBottom: '2rem' }}>
-        <h2>{t('business.dashboard')}</h2>
-        {getStatusBadge(business.verificationStatus)}
-      </div>
-
-      <div className="card" style={{ marginBottom: '2rem' }}>
-        <h3>{business.businessName}</h3>
-        <p>{business.industry}</p>
-        <p>{business.description}</p>
-
-        {business.verificationStatus === 'REJECTED' && business.verifications?.length > 0 && (
-          <div className="badge badge-error" style={{ display: 'block', marginTop: '1rem', padding: '1rem', borderRadius: 'var(--radius-md)' }}>
-            <strong>Rejection Reason:</strong> {business.verifications[business.verifications.length - 1].remarks || 'Please update your details and resubmit.'}
+    <div className="container">
+      <PageHeader
+        eyebrow={t('business.dashboard')}
+        title={business.businessName}
+        description={t('business.workspace_intro')}
+        actions={
+          <div className="page-header__actions">
+            {vs !== 'APPROVED' && (
+              <Link to="/business/verify" className="btn btn-secondary">{t('business.submit_verification')}</Link>
+            )}
+            {vs === 'APPROVED' && (
+              <Link to="/business/campaign/create" className="btn btn-primary">{t('business.create_campaign')}</Link>
+            )}
           </div>
-        )}
+        }
+      />
 
-        <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-          {business.verificationStatus !== 'APPROVED' && business.verificationStatus !== 'PENDING' && (
-            <Link to="/business/verify" className="btn btn-secondary">{t('business.submit_verification')}</Link>
-          )}
-          {business.verificationStatus === 'APPROVED' && (
-            <Link to="/business/campaign/create" className="btn btn-primary">{t('business.create_campaign')}</Link>
-          )}
+      <div className="dashboard-grid">
+        {/* Left column */}
+        <div className="detail-stack">
+
+          {/* Business identity card */}
+          <div className="card workspace-card">
+            <div className="workspace-card__heading">
+              <div>
+                <p className="eyebrow">{t('business.identity')}</p>
+                <h2 style={{ fontSize: '1.35rem', marginBottom: '.25rem' }}>{business.businessName}</h2>
+                <div className="workspace-card__meta">
+                  <span>{business.industry}</span>
+                </div>
+              </div>
+              <VerificationBadge status={vs} />
+            </div>
+            <p style={{ margin: 0 }}>{business.description}</p>
+          </div>
+
+          {/* Verification status card */}
+          <div className="card workspace-card">
+            <div className="workspace-card__heading">
+              <div>
+                <p className="eyebrow">{t('business.verification_title')}</p>
+                <h2 style={{ fontSize: '1.2rem', marginBottom: '.25rem' }}>{t('business.next_action')}</h2>
+              </div>
+              <StatusBadge status={vs} label={t(`business.status_${vs.toLowerCase()}`)} />
+            </div>
+            <p style={{ margin: '0 0 .75rem' }}>{verificationMessage()}</p>
+            {vs === 'REJECTED' && business.verifications?.length > 0 && (
+              <div className="alert alert--error" style={{ marginTop: '.75rem' }}>
+                <strong>Remarks: </strong>{business.verifications[business.verifications.length - 1].remarks || 'Please update your documents and resubmit.'}
+              </div>
+            )}
+            <p style={{ margin: '.5rem 0 0', fontSize: '.9rem', color: 'var(--ink-muted)' }}>{nextAction()}</p>
+          </div>
+
+        </div>
+
+        {/* Right column: trust */}
+        <div className="detail-stack">
+          <div className="card workspace-card">
+            <p className="eyebrow">{t('trust.audit_title')}</p>
+            <TrustIndicator title={t('trust.audit_title')} description={t('trust.audit_description')} />
+            <div style={{ marginTop: '.75rem' }}>
+              <TrustIndicator title={t('trust.document_title')} description={t('trust.document_description')} />
+            </div>
+          </div>
         </div>
       </div>
 
-      <h3>Your Campaigns</h3>
-      {business.campaigns?.length === 0 ? (
-        <p style={{ marginTop: '1rem' }}>No campaigns created yet.</p>
+      {/* Campaigns section */}
+      <SectionHeader
+        title={t('business.campaigns_title')}
+        description={t('business.workspace_intro')}
+        action={vs === 'APPROVED' && <Link to="/business/campaign/create" className="btn btn-secondary">{t('business.create_campaign')}</Link>}
+      />
+
+      {!business.campaigns || business.campaigns.length === 0 ? (
+        <EmptyState
+          title={t('business.no_campaigns')}
+          description={t('business.no_campaigns_description')}
+          action={vs === 'APPROVED' && <Link to="/business/campaign/create" className="btn btn-primary">{t('business.create_campaign')}</Link>}
+        />
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', marginTop: '1rem' }}>
-          {business.campaigns?.map(c => (
-            <div key={c.id} className="card">
-              <h4>{c.title}</h4>
-              <p>Goal: ${c.fundingGoal}</p>
-              <p>Raised: ${c.currentFunding}</p>
-              <span className="badge badge-info">{c.status}</span>
-            </div>
-          ))}
+        <div className="campaign-grid">
+          {business.campaigns.map(c => {
+            const goal = Number(c.fundingGoal) || 0;
+            const funded = Number(c.currentFunding) || 0;
+            const progress = goal ? (funded / goal) * 100 : 0;
+            return (
+              <article key={c.id} className="campaign-card">
+                <div className="campaign-card__topline">
+                  <span className="campaign-card__industry">{business.industry}</span>
+                  <StatusBadge status={c.status} />
+                </div>
+                <h3 style={{ marginTop: '.75rem' }}>{c.title}</h3>
+                <div className="campaign-card__funding">
+                  <div>
+                    <span>{t('campaign.raised')}</span>
+                    <strong>${funded.toLocaleString()}</strong>
+                  </div>
+                  <div>
+                    <span>{t('campaign.target')}</span>
+                    <strong>${goal.toLocaleString()}</strong>
+                  </div>
+                </div>
+                <ProgressBar compact value={progress} label={t('campaign.funding_progress', { value: Math.round(progress) })} />
+              </article>
+            );
+          })}
         </div>
       )}
     </div>

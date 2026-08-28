@@ -22,7 +22,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <main className="container" style={{ padding: 'var(--spacing-8) var(--spacing-4)' }}>
+      <main className="app-main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

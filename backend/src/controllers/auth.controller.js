@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken');
 
 const prisma = new PrismaClient();
 
+// Administrator accounts are provisioned through controlled administrative setup,
+// never through the public registration endpoint.
+const PUBLIC_REGISTRATION_ROLES = ['BUSINESS_OWNER', 'INVESTOR'];
+
 exports.register = async (req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
@@ -11,6 +15,10 @@ exports.register = async (req, res, next) => {
     // Basic validation
     if (!name || !email || !password || !role) {
       return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    if (!PUBLIC_REGISTRATION_ROLES.includes(role)) {
+      return res.status(403).json({ error: 'Public registration is available only for Business Owners and Investors.' });
     }
 
     const existingUser = await prisma.user.findUnique({ where: { email } });

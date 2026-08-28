@@ -1,76 +1,11 @@
 {
-  "nav": {
-    "home": "Home",
-    "login": "Login",
-    "register": "Register",
-    "logout": "Logout"
-  },
-  "home": {
-    "title": "Welcome to Dikaios Amanah",
-    "subtitle": "A Secure, Transparent and Ethical SME Investment Platform",
-    "cta": "Get Started"
-  },
-  "auth": {
-    "login_title": "Sign In to Your Account",
-    "register_title": "Create an Account",
-    "name": "Full Name",
-    "email": "Email Address",
-    "password": "Password",
-    "role": "I am a...",
-    "role_business": "Business Owner",
-    "role_investor": "Investor",
-    "submit": "Submit"
-  },
-  "business": {
-    "dashboard": "Business Dashboard",
-    "create_profile": "Create Business Profile",
-    "submit_verification": "Submit Verification",
-    "create_campaign": "Create Campaign",
-    "business_name": "Business Name",
-    "description": "Description",
-    "industry": "Industry",
-    "document": "Supporting Document",
-    "status": "Verification Status",
-    "status_pending": "Pending",
-    "status_approved": "Approved",
-    "status_rejected": "Rejected",
-    "status_not_submitted": "Not Submitted",
-    "campaign_title": "Campaign Title",
-    "funding_goal": "Funding Goal",
-    "submit": "Submit",
-    "upload_doc_help": "Please upload a valid document (PDF, JPG, PNG) verifying your business entity."
-  },
-  "admin": {
-    "dashboard": "Administrator Dashboard",
-    "verifications": "Pending Verifications",
-    "campaigns": "Pending Campaigns",
-    "audits": "Audit Logs",
-    "review": "Review",
-    "approve": "Approve",
-    "reject": "Reject",
-    "remarks": "Rejection Remarks (Reason)",
-    "no_pending": "No pending items found.",
-    "document": "View Document",
-    "audit_event": "Event Type",
-    "audit_user": "User",
-    "audit_time": "Timestamp",
-    "audit_hash": "Integrity Hash"
-  },
-  "investor": {
-    "dashboard": "Investor Dashboard",
-    "portfolio": "My Portfolio",
-    "browse_campaigns": "Browse Campaigns",
-    "invest": "Invest Now",
-    "investment_amount": "Investment Amount ($)",
-    "confirm_investment": "Confirm Simulated Investment",
-    "investment_history": "Investment History",
-    "campaign_details": "Campaign Details",
-    "funding_progress": "Funding Progress",
-    "remaining_capacity": "Remaining Capacity",
-    "invested_at": "Invested At",
-    "status": "Status",
-    "profit_declarations": "Profit Declarations",
-    "no_campaigns": "No available campaigns at the moment.",
-    "no_investments": "You haven't made any investments yet."
-  }
+  "common": { "loading": "Loading…", "error": "Something went wrong.", "not_available": "Not available yet", "back": "Back", "review": "Review", "document_integrity": "Document integrity protected" },
+  "nav": { "home": "Home", "login": "Login", "register": "Register", "logout": "Log out", "dashboard": "Dashboard", "verification": "Verification", "discover": "Discover", "portfolio": "Portfolio", "verifications": "Verifications", "campaigns": "Campaigns", "audit_logs": "Audit logs", "menu": "Menu" },
+  "home": { "eyebrow": "Ethical SME investment platform", "title": "Dikaios Amanah", "subtitle": "A trustworthy and transparent platform connecting verified businesses with investors through ethical, Musharakah-based investment opportunities.", "cta": "Get Started", "explore": "Explore opportunities", "join_business": "Join as business owner", "join_investor": "Join as investor", "mvp_note": "Academic MVP — all investment activity is simulated. No real-money transaction is processed.", "trust_panel_eyebrow": "Built for due diligence", "trust_panel_title": "Trust is part of the workflow.", "trust_panel_body": "Verification, evidence integrity, approval, and critical events are designed to be visible where they matter.", "trust_signal_one": "Business verification before campaign access", "trust_signal_two": "Tamper-evident audit records for critical events", "pillars_eyebrow": "Platform pillars", "pillars_title": "Confidence before participation", "trust_section_title": "Designed for accountable participation", "trust_section_body": "Dikaios Amanah combines business verification, transparent campaign information, secure document evidence, and a cryptographic trust record in one academic platform.", "pillars": { "verified": { "title": "Verified businesses", "body": "Business verification is reviewed before campaigns can become active." }, "transparent": { "title": "Transparent campaigns", "body": "See the campaign purpose, funding target, and recorded progress." }, "musharakah": { "title": "Musharakah investment", "body": "A partnership-based model presented as simulated academic activity." }, "documents": { "title": "Secure documents", "body": "Verification documents receive integrity protection through hashing." }, "audit": { "title": "Trust & audit", "body": "Critical actions are recorded in a tamper-evident hash chain." } } },
+  "auth": { "login_title": "Sign in to your account", "register_title": "Create an account", "name": "Full name", "email": "Email address", "password": "Password", "role": "I am a…", "role_business": "Business owner", "role_investor": "Investor", "submit": "Continue", "login_intro": "Access your verified business, investor, or administrator workspace.", "register_intro": "Choose the platform role that matches how you want to participate." },
+  "business": { "dashboard": "Business workspace", "create_profile": "Create business profile", "submit_verification": "Submit verification", "create_campaign": "Create campaign", "business_name": "Business name", "description": "Description", "industry": "Industry", "document": "Supporting document", "status": "Verification status", "status_pending": "Pending", "status_approved": "Approved", "status_rejected": "Rejected", "status_not_submitted": "No business profile yet", "campaign_title": "Campaign title", "funding_goal": "Funding goal", "submit": "Submit", "upload_doc_help": "Upload a valid PDF, JPG, or PNG that supports your business verification.", "workspace_intro": "Manage your business verification and campaign activity from one place.", "identity": "Business identity", "verification_title": "Verification", "verification_pending_body": "Your business is awaiting verification. Submit supporting documentation if it has not been provided.", "verification_rejected_body": "Review the feedback and submit updated verification information.", "verification_approved_body": "Your business is verified and eligible to submit a campaign for review.", "next_action": "Next action", "next_action_pending": "Complete or review your verification submission.", "next_action_approved": "Create a campaign when you are ready to seek simulated funding.", "campaigns_title": "Your campaigns", "no_campaigns": "You have not created any campaigns yet.", "no_campaigns_description": "After your business is approved, you can submit a campaign for administrator review." },
+  "campaign": { "raised": "Raised", "target": "Target", "funding_progress": "{{value}}% funded", "overview": "Campaign overview", "business": "Business", "funding": "Funding progress", "investment_information": "Investment information", "available_details": "Available details", "campaign_status": "Campaign status", "simulated_notice": "SIMULATED INVESTMENT — ACADEMIC MVP. No real money will be transferred.", "musharakah_title": "Musharakah investment", "contribution": "Recorded campaign funding", "profit_sharing": "Profit sharing", "tenure": "Tenure", "risk_information": "Risk information", "not_configured": "Not yet configured", "active_campaigns_intro": "Review active campaigns and their recorded funding progress before participating." },
+  "admin": { "dashboard": "Administrator workspace", "verifications": "Pending verifications", "campaigns": "Pending campaigns", "audits": "Audit logs", "review": "Review", "approve": "Approve", "reject": "Reject", "remarks": "Rejection remarks", "no_pending": "No pending items found.", "document": "Document", "audit_event": "Event type", "audit_user": "User", "audit_time": "Timestamp", "audit_hash": "Integrity hash", "workspace_intro": "Review verification, campaign, and trust information from the operational workspace.", "verification_queue": "Verification queue", "campaign_queue": "Campaign queue", "audit_workspace": "Trust & audit workspace", "document_metadata": "Document metadata", "hash_note": "The document hash is displayed for integrity review. Secure document download is not available in this MVP.", "ledger_valid": "Ledger integrity valid", "ledger_invalid": "Ledger integrity compromised", "records_checked": "Records checked", "manual_verification": "Run integrity check" },
+  "investor": { "dashboard": "Investor workspace", "portfolio": "Portfolio", "browse_campaigns": "Discover campaigns", "invest": "Invest now", "investment_amount": "Investment amount ($)", "confirm_investment": "Confirm simulated investment", "investment_history": "Investment history", "campaign_details": "Review campaign", "funding_progress": "Funding progress", "remaining_capacity": "Remaining capacity", "invested_at": "Invested at", "status": "Status", "profit_declarations": "Profit declarations", "no_campaigns": "No active campaigns are available right now.", "no_investments": "You have not made any simulated investments yet.", "workspace_intro": "Discover eligible campaigns, review information, and track recorded simulated investments.", "discover_intro": "Only active campaigns returned by the platform are shown here.", "portfolio_intro": "Your recorded simulated investment activity and portfolio history.", "business_information": "Business information", "verification_information": "Verification information", "verification_not_available": "Verification detail is not available in the current campaign response.", "investment_success": "Simulated investment recorded. Your portfolio has been updated." },
+  "trust": { "verification_approved": "Verification approved", "verification_pending": "Verification pending", "verification_rejected": "Verification rejected", "audit_title": "Cryptographic Trust & Audit Layer", "audit_description": "Critical records are linked with cryptographic hashes to make later alteration evident.", "document_title": "Document integrity protected", "document_description": "Uploaded verification documents are stored with a SHA-256 integrity hash." }
 }

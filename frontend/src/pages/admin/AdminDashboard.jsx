@@ -1,40 +1,73 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { PageHeader, TrustIndicator } from '../../components/UI';
 
 const AdminDashboard = () => {
   const { t } = useTranslation();
 
+  const queues = [
+    {
+      eyebrow: 'Queue',
+      title: t('admin.verifications'),
+      description: 'Review new business owner verification submissions, documents, and document integrity hashes.',
+      to: '/admin/verifications',
+      variant: 'btn-primary',
+    },
+    {
+      eyebrow: 'Queue',
+      title: t('admin.campaigns'),
+      description: 'Review and moderate Musharakah campaign submissions before they are made active for investors.',
+      to: '/admin/campaigns',
+      variant: 'btn-primary',
+    },
+    {
+      eyebrow: 'Trust & Audit',
+      title: t('admin.audits'),
+      description: 'View the cryptographic hash-chain audit ledger and run an integrity check against all audit records.',
+      to: '/admin/audits',
+      variant: 'btn-secondary',
+    },
+  ];
+
   return (
-    <div className="container animate-fade-in" style={{ marginTop: '2rem' }}>
-      <h2 style={{ marginBottom: '2rem' }}>{t('admin.dashboard')}</h2>
+    <div className="container">
+      <PageHeader
+        eyebrow="Administrator"
+        title={t('admin.dashboard')}
+        description={t('admin.workspace_intro')}
+      />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+      <div className="campaign-grid" style={{ marginBottom: '2rem' }}>
+        {queues.map(q => (
+          <div key={q.to} className="card workspace-card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <p className="eyebrow">{q.eyebrow}</p>
+            <h2 style={{ fontSize: '1.2rem', flexGrow: 1 }}>{q.title}</h2>
+            <p style={{ flexGrow: 1 }}>{q.description}</p>
+            <Link to={q.to} className={`btn ${q.variant}`} style={{ marginTop: '1.25rem' }}>
+              {t('admin.review')}
+            </Link>
+          </div>
+        ))}
+      </div>
 
-        <div className="card">
-          <h3>{t('admin.verifications')}</h3>
-          <p>Review new business owner verification submissions and documents.</p>
-          <Link to="/admin/verifications" className="btn btn-primary" style={{ marginTop: '1rem' }}>
-            {t('admin.review')}
-          </Link>
+      <div className="card workspace-card">
+        <p className="eyebrow">{t('trust.audit_title')}</p>
+        <h2 style={{ fontSize: '1.15rem', marginBottom: '1rem' }}>Cryptographic Trust & Audit Layer</h2>
+        <div style={{ display: 'grid', gap: '.75rem' }}>
+          <TrustIndicator
+            title={t('trust.audit_title')}
+            description={t('trust.audit_description')}
+          />
+          <TrustIndicator
+            title={t('trust.document_title')}
+            description={t('trust.document_description')}
+          />
+          <TrustIndicator
+            title="Audit trail active"
+            description="Critical verification, campaign, and investment events are recorded in the tamper-evident hash chain."
+          />
         </div>
-
-        <div className="card">
-          <h3>{t('admin.campaigns')}</h3>
-          <p>Review and moderate Musharakah campaigns before they are active.</p>
-          <Link to="/admin/campaigns" className="btn btn-primary" style={{ marginTop: '1rem' }}>
-            {t('admin.review')}
-          </Link>
-        </div>
-
-        <div className="card">
-          <h3>{t('admin.audits')}</h3>
-          <p>View the immutable ledger of critical system activities.</p>
-          <Link to="/admin/audits" className="btn btn-secondary" style={{ marginTop: '1rem' }}>
-            {t('admin.review')}
-          </Link>
-        </div>
-
       </div>
     </div>
   );

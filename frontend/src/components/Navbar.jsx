@@ -1,54 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'bn' : 'en';
-    i18n.changeLanguage(newLang);
-  };
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    navigate('/login');
+  const roleLinks = {
+    BUSINESS_OWNER: [{ to: '/business', label: t('nav.dashboard') }, { to: '/business/verify', label: t('nav.verification') }],
+    INVESTOR: [{ to: '/investor', label: t('nav.dashboard') }, { to: '/investor/campaigns', label: t('nav.discover') }, { to: '/investor/portfolio', label: t('nav.portfolio') }],
+    ADMINISTRATOR: [{ to: '/admin', label: t('nav.dashboard') }, { to: '/admin/verifications', label: t('nav.verifications') }, { to: '/admin/campaigns', label: t('nav.campaigns') }, { to: '/admin/audits', label: t('nav.audit_logs') }]
   };
 
-  return (
-    <nav className="navbar">
-      <div className="container flex justify-between items-center">
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h2 style={{ margin: 0, color: 'var(--primary-color)' }}>Dikaios Amanah</h2>
-        </Link>
-        <div className="flex items-center gap-4">
-          <button className="btn btn-secondary" onClick={toggleLanguage}>
-            {i18n.language === 'en' ? 'বাংলা' : 'English'}
-          </button>
-          {token ? (
-            <>
-              {role === 'BUSINESS_OWNER' && <Link to="/business" className="btn btn-secondary">Dashboard</Link>}
-              {role === 'INVESTOR' && <Link to="/investor" className="btn btn-secondary">Dashboard</Link>}
-              {role === 'ADMINISTRATOR' && <Link to="/admin" className="btn btn-secondary">Admin</Link>}
-              <button className="btn btn-primary" onClick={handleLogout}>
-                {t('nav.logout')}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="btn btn-secondary">{t('nav.login')}</Link>
-              <Link to="/register" className="btn btn-primary">{t('nav.register')}</Link>
-            </>
-          )}
-        </div>
-      </div>
-    </nav>
-  );
+  const closeMenu = () => setIsMenuOpen(false);
+  const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'en' ? 'bn' : 'en');
+  const handleLogout = () => { localStorage.removeItem('token'); localStorage.removeItem('role'); closeMenu(); navigate('/login'); };
+
+  return <nav className="navbar"><div className="container nav-shell">
+    <Link to="/" className="brand" onClick={closeMenu}><span className="brand__seal" aria-hidden="true">DA</span><span>Dikaios Amanah</span></Link>
+    {token && <button className="btn btn-quiet nav-menu-toggle" type="button" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-expanded={isMenuOpen}>{t('nav.menu')}</button>}
+    {token && <div className={`nav-links ${isMenuOpen ? 'nav-links--open' : ''}`}>{roleLinks[role]?.map(link => <Link key={link.to} to={link.to} className="nav-link" onClick={closeMenu}>{link.label}</Link>)}</div>}
+    <div className="nav-actions"><button className="btn btn-secondary" onClick={toggleLanguage}>{i18n.language === 'en' ? 'বাংলা' : 'English'}</button>{token ? <button className="btn btn-primary" onClick={handleLogout}>{t('nav.logout')}</button> : <><Link to="/login" className="btn btn-secondary">{t('nav.login')}</Link><Link to="/register" className="btn btn-primary">{t('nav.register')}</Link></>}</div>
+  </div></nav>;
 };
 
 export default Navbar;
