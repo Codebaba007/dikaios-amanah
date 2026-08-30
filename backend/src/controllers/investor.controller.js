@@ -2,14 +2,43 @@ const { PrismaClient } = require('@prisma/client');
 const TrustLayerService = require('../services/trust.service');
 const prisma = new PrismaClient();
 
-// Get active campaigns for discovery
+// Get active campaigns for discovery (supports optional search and industry filter)
 exports.getApprovedCampaigns = async (req, res, next) => {
   try {
+    const { search, industry } = req.query;
+
+    const where = { status: 'ACTIVE' };
+
+    // Server-side search across campaign title, description, business name, industry
+    if (search && search.trim()) {
+      const term = search.trim();
+      where.OR = [
+        { title: { contains: term, mode: 'insensitive' } },
+        { description: { contains: term, mode: 'insensitive' } },
+        { business: { businessName: { contains: term, mode: 'insensitive' } } },
+        { business: { industry: { contains: term, mode: 'insensitive' } } }
+      ];
+    }
+
+    // Server-side industry filter
+    if (industry && industry.trim()) {
+      where.business = { ...where.business, industry: { equals: industry.trim(), mode: 'insensitive' } };
+    }
+
     const campaigns = await prisma.campaign.findMany({
-      where: { status: 'ACTIVE' },
+      where,
       include: {
-        business: { select: { businessName: true, industry: true } }
-      }
+        business: {
+          select: {
+            id: true,
+            businessName: true,
+            industry: true,
+            description: true,
+            verificationStatus: true
+          }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
     });
     res.json(campaigns);
   } catch (error) {
@@ -25,7 +54,15 @@ exports.getCampaignDetails = async (req, res, next) => {
     const campaign = await prisma.campaign.findUnique({
       where: { id: campaignId },
       include: {
-        business: { select: { businessName: true, description: true, industry: true } },
+        business: {
+          select: {
+            id: true,
+            businessName: true,
+            description: true,
+            industry: true,
+            verificationStatus: true
+          }
+        },
         profitDeclarations: {
           where: { status: 'APPROVED' } // Only show approved profits (assuming admin clears them, or just show all pending/approved for now, let's show all for simplicity unless specified otherwise. We will show all for transparency.)
         }
@@ -139,6 +176,89 @@ exports.getPortfolio = async (req, res, next) => {
     });
 
     res.json(investments);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get businesses eligible for investor discovery
+exports.getBusinesses = async (req, res, next) => {
+  try {
+    const businesses = await prisma.business.findMany({
+      where: { verificationStatus: 'APPROVED' },
+      select: {
+        id: true,
+        businessName: true,
+        industry: true,
+        description: true,
+        verificationStatus: true,
+        createdAt: true,
+        _count: {
+          select: {
+            campaigns: { where: { status: 'ACTIVE' } }
+          }
+        }
+      },
+      orderBy: { businessName: 'asc' }
+    });
+
+    const result = businesses.map(b => ({
+      id: b.id,
+      businessName: b.businessName,
+      industry: b.industry,
+      description: b.description,
+      verificationStatus: b.verificationStatus,
+      createdAt: b.createdAt,
+      activeCampaignCount: b._count.campaigns
+    }));
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get specific business detail for investor
+exports.getBusinessDetail = async (req, res, next) => {
+  try {
+    const { businessId } = req.params;
+
+    const business = await prisma.business.findUnique({
+      where: { id: businessId },
+      select: {
+        id: true,
+        businessName: true,
+        industry: true,
+        description: true,
+        verificationStatus: true,
+        createdAt: true,
+        campaigns: {
+          where: { status: 'ACTIVE' },
+          include: {
+            business: {
+              select: {
+                id: true,
+                businessName: true,
+                industry: true,
+                description: true,
+                verificationStatus: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    if (!business) {
+      return res.status(404).json({ error: 'Business not found.' });
+    }
+
+    // Only expose approved (verified) businesses to investors
+    if (business.verificationStatus !== 'APPROVED') {
+      return res.status(404).json({ error: 'Business not found.' });
+    }
+
+    res.json(business);
   } catch (error) {
     next(error);
   }

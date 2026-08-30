@@ -3,7 +3,9 @@ const {
   getApprovedCampaigns,
   getCampaignDetails,
   makeInvestment,
-  getPortfolio
+  getPortfolio,
+  getBusinesses,
+  getBusinessDetail
 } = require('../controllers/investor.controller');
 const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
@@ -16,5 +18,7 @@ router.get('/campaigns', getApprovedCampaigns);
 router.get('/campaigns/:campaignId', getCampaignDetails);
 router.post('/invest', makeInvestment);
 router.get('/portfolio', getPortfolio);
+router.get('/businesses', getBusinesses);
+router.get('/businesses/:businessId', getBusinessDetail);
 
 module.exports = router;
