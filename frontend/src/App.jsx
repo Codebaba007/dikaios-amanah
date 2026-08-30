@@ -17,6 +17,7 @@ import InvestorDashboard from './pages/investor/InvestorDashboard';
 import BrowseCampaigns from './pages/investor/BrowseCampaigns';
 import CampaignDetails from './pages/investor/CampaignDetails';
 import Portfolio from './pages/investor/Portfolio';
+import BusinessProfile from './pages/investor/BusinessProfile';
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/investor" element={<ProtectedRoute allowedRoles={['INVESTOR']}><InvestorDashboard /></ProtectedRoute>} />
           <Route path="/investor/campaigns" element={<ProtectedRoute allowedRoles={['INVESTOR']}><BrowseCampaigns /></ProtectedRoute>} />
           <Route path="/investor/campaigns/:id" element={<ProtectedRoute allowedRoles={['INVESTOR']}><CampaignDetails /></ProtectedRoute>} />
+          <Route path="/investor/businesses/:id" element={<ProtectedRoute allowedRoles={['INVESTOR']}><BusinessProfile /></ProtectedRoute>} />
           <Route path="/investor/portfolio" element={<ProtectedRoute allowedRoles={['INVESTOR']}><Portfolio /></ProtectedRoute>} />
         </Routes>
       </main>
