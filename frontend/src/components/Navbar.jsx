@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const roleLinks = {
     BUSINESS_OWNER: [{ to: '/business', label: t('nav.dashboard') }, { to: '/business/verify', label: t('nav.verification') }],
-    INVESTOR: [{ to: '/investor', label: t('nav.dashboard') }, { to: '/investor/campaigns', label: t('nav.discover') }, { to: '/investor/portfolio', label: t('nav.portfolio') }],
+    INVESTOR: [{ to: '/investor', label: t('nav.dashboard') }, { to: '/investor/verify', label: t('nav.verification') }, { to: '/investor/campaigns', label: t('nav.discover') }, { to: '/investor/portfolio', label: t('nav.portfolio') }],
     ADMINISTRATOR: [{ to: '/admin', label: t('nav.dashboard') }, { to: '/admin/verifications', label: t('nav.verifications') }, { to: '/admin/campaigns', label: t('nav.campaigns') }, { to: '/admin/audits', label: t('nav.audit_logs') }]
   };
 

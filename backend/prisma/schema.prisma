@@ -27,6 +27,7 @@ model User {
   investments    Investment[]
   auditRecords   AuditRecord[]
   notifications  Notification[]
+  investorVerifications InvestorVerification[]
 }
 
 model Business {
@@ -140,4 +141,31 @@ model Notification {
   // Foreign key to User
   userId             String
   user               User      @relation(fields: [userId], references: [id])
+}
+
+model InvestorVerification {
+  id                 String    @id @default(uuid())
+  status             String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  submittedAt        DateTime  @default(now())
+  reviewedAt         DateTime?
+  remarks            String?
+
+  // Foreign key to Investor (User)
+  investorId         String
+  investor           User      @relation(fields: [investorId], references: [id])
+
+  documents          InvestorDocument[]
+}
+
+model InvestorDocument {
+  id                 String    @id @default(uuid())
+  fileName           String
+  fileType           String
+  storageReference   String
+  integrityHash      String
+  uploadedAt         DateTime  @default(now())
+
+  // Foreign key to InvestorVerification
+  verificationId     String
+  verification       InvestorVerification @relation(fields: [verificationId], references: [id])
 }

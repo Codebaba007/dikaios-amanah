@@ -85,6 +85,14 @@ exports.makeInvestment = async (req, res, next) => {
     const investorId = req.user.userId;
     const { campaignId, amount } = req.body;
 
+    // Eligibility check: investor must have an APPROVED verification
+    const approvedVerification = await prisma.investorVerification.findFirst({
+      where: { investorId, status: 'APPROVED' }
+    });
+    if (!approvedVerification) {
+      return res.status(403).json({ error: 'Legal verification is required before investing. Please submit your identity verification documents.' });
+    }
+
     const investmentAmount = parseFloat(amount);
     if (isNaN(investmentAmount) || investmentAmount <= 0) {
       return res.status(400).json({ error: 'Invalid investment amount.' });

@@ -18,6 +18,7 @@ import BrowseCampaigns from './pages/investor/BrowseCampaigns';
 import CampaignDetails from './pages/investor/CampaignDetails';
 import Portfolio from './pages/investor/Portfolio';
 import BusinessProfile from './pages/investor/BusinessProfile';
+import InvestorVerification from './pages/investor/InvestorVerification';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/admin/audits" element={<ProtectedRoute allowedRoles={['ADMINISTRATOR']}><AuditLogs /></ProtectedRoute>} />
 
           <Route path="/investor" element={<ProtectedRoute allowedRoles={['INVESTOR']}><InvestorDashboard /></ProtectedRoute>} />
+          <Route path="/investor/verify" element={<ProtectedRoute allowedRoles={['INVESTOR']}><InvestorVerification /></ProtectedRoute>} />
           <Route path="/investor/campaigns" element={<ProtectedRoute allowedRoles={['INVESTOR']}><BrowseCampaigns /></ProtectedRoute>} />
           <Route path="/investor/campaigns/:id" element={<ProtectedRoute allowedRoles={['INVESTOR']}><CampaignDetails /></ProtectedRoute>} />
           <Route path="/investor/businesses/:id" element={<ProtectedRoute allowedRoles={['INVESTOR']}><BusinessProfile /></ProtectedRoute>} />

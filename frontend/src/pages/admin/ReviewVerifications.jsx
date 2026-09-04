@@ -4,25 +4,29 @@ import { PageHeader, SectionHeader, StatusBadge, EmptyState, LoadingState, Error
 
 const ReviewVerifications = () => {
   const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState('business');
   const [verifications, setVerifications] = useState([]);
+  const [investorVerifications, setInvestorVerifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   // Per-card rejection remark state
   const [remarks, setRemarks] = useState({});
 
   useEffect(() => {
-    fetchVerifications();
+    fetchAll();
   }, []);
 
-  const fetchVerifications = async () => {
+  const fetchAll = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/admin/verifications/pending', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      if (!res.ok) throw new Error(t('common.error'));
-      const data = await res.json();
-      setVerifications(data);
+      const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
+      const [bizRes, invRes] = await Promise.all([
+        fetch('http://localhost:5000/api/admin/verifications/pending', { headers }),
+        fetch('http://localhost:5000/api/admin/investor-verifications/pending', { headers })
+      ]);
+      if (!bizRes.ok || !invRes.ok) throw new Error(t('common.error'));
+      setVerifications(await bizRes.json());
+      setInvestorVerifications(await invRes.json());
     } catch (err) {
       setError(err.message);
       console.error(err);
@@ -31,15 +35,14 @@ const ReviewVerifications = () => {
     }
   };
 
-  const handleReview = async (id, action) => {
+  const handleReview = async (id, action, endpoint) => {
     const remark = action === 'REJECTED' ? (remarks[id] || '') : '';
-    // For rejection, require at least some remark text
     if (action === 'REJECTED' && !remark.trim()) {
       setRemarks(prev => ({ ...prev, [`${id}_error`]: 'Please enter rejection remarks before rejecting.' }));
       return;
     }
     try {
-      await fetch(`http://localhost:5000/api/admin/verifications/${id}/review`, {
+      await fetch(`http://localhost:5000/api/admin/${endpoint}/${id}/review`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,13 +50,16 @@ const ReviewVerifications = () => {
         },
         body: JSON.stringify({ action, remarks: remark })
       });
-      fetchVerifications();
+      fetchAll();
     } catch (err) {
       console.error(err);
     }
   };
 
   if (loading) return <div className="container"><LoadingState /></div>;
+
+  const currentItems = activeTab === 'business' ? verifications : investorVerifications;
+  const currentEndpoint = activeTab === 'business' ? 'verifications' : 'investor-verifications';
 
   return (
     <div className="container">
@@ -65,18 +71,42 @@ const ReviewVerifications = () => {
 
       {error && <ErrorState message={error} />}
 
-      {verifications.length === 0 ? (
+      {/* Tabs */}
+      <div className="discovery-tabs" role="tablist" style={{ marginBottom: '1.5rem' }}>
+        <button
+          role="tab"
+          aria-selected={activeTab === 'business'}
+          className={`discovery-tab${activeTab === 'business' ? ' discovery-tab--active' : ''}`}
+          onClick={() => setActiveTab('business')}
+        >
+          {t('investor.tab_business_verifications')}
+        </button>
+        <button
+          role="tab"
+          aria-selected={activeTab === 'investor'}
+          className={`discovery-tab${activeTab === 'investor' ? ' discovery-tab--active' : ''}`}
+          onClick={() => setActiveTab('investor')}
+        >
+          {t('investor.tab_investor_verifications')}
+        </button>
+      </div>
+
+      {currentItems.length === 0 ? (
         <EmptyState title={t('admin.no_pending')} description="All verification submissions have been reviewed." />
       ) : (
         <div className="review-grid">
-          {verifications.map(v => (
+          {currentItems.map(v => (
             <div key={v.id} className="card review-card">
               <div className="workspace-card__heading">
                 <div>
-                  <p className="eyebrow">{v.verificationType}</p>
-                  <h3 style={{ margin: 0 }}>{v.business.businessName}</h3>
+                  <p className="eyebrow">{activeTab === 'business' ? v.verificationType : 'IDENTITY'}</p>
+                  <h3 style={{ margin: 0 }}>
+                    {activeTab === 'business' ? v.business?.businessName : v.investor?.name}
+                  </h3>
                   <p style={{ margin: '.25rem 0 0', fontSize: '.85rem' }}>
-                    {v.business.owner.name} · {v.business.owner.email}
+                    {activeTab === 'business'
+                      ? `${v.business?.owner?.name} · ${v.business?.owner?.email}`
+                      : v.investor?.email}
                   </p>
                 </div>
                 <StatusBadge status={v.status || 'PENDING'} label="PENDING" />
@@ -119,14 +149,14 @@ const ReviewVerifications = () => {
 
               <div className="review-card__actions">
                 <button
-                  onClick={() => handleReview(v.id, 'APPROVED')}
+                  onClick={() => handleReview(v.id, 'APPROVED', currentEndpoint)}
                   className="btn btn-primary"
                   style={{ flex: 1 }}
                 >
                   {t('admin.approve')}
                 </button>
                 <button
-                  onClick={() => handleReview(v.id, 'REJECTED')}
+                  onClick={() => handleReview(v.id, 'REJECTED', currentEndpoint)}
                   className="btn btn-secondary"
                   style={{ flex: 1, borderColor: 'var(--danger)', color: 'var(--danger)' }}
                 >
@@ -142,3 +172,4 @@ const ReviewVerifications = () => {
 };
 
 export default ReviewVerifications;
+

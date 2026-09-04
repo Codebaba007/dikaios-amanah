@@ -5,7 +5,9 @@ const {
   getPendingCampaigns,
   reviewCampaign,
   getAuditRecords,
-  verifyLedger
+  verifyLedger,
+  getPendingInvestorVerifications,
+  reviewInvestorVerification
 } = require('../controllers/admin.controller');
 const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
@@ -20,8 +22,13 @@ router.post('/verifications/:verificationId/review', reviewVerification);
 router.get('/campaigns/pending', getPendingCampaigns);
 router.post('/campaigns/:campaignId/review', reviewCampaign);
 
+// Investor verifications
+router.get('/investor-verifications/pending', getPendingInvestorVerifications);
+router.post('/investor-verifications/:verificationId/review', reviewInvestorVerification);
+
 // Audit & Trust Layer
 router.get('/audits', getAuditRecords);
 router.get('/audits/verify', verifyLedger);
 
 module.exports = router;
+

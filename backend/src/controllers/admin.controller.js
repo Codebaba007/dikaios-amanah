@@ -162,3 +162,72 @@ exports.verifyLedger = async (req, res, next) => {
     next(error);
   }
 };
+
+// INVESTOR VERIFICATIONS
+
+exports.getPendingInvestorVerifications = async (req, res, next) => {
+  try {
+    const verifications = await prisma.investorVerification.findMany({
+      where: { status: 'PENDING' },
+      include: {
+        investor: { select: { name: true, email: true } },
+        documents: true
+      }
+    });
+    res.json(verifications);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.reviewInvestorVerification = async (req, res, next) => {
+  try {
+    const adminId = req.user.userId;
+    const { verificationId } = req.params;
+    const { action, remarks } = req.body;
+
+    if (!['APPROVED', 'REJECTED'].includes(action)) {
+      return res.status(400).json({ error: 'Invalid action. Must be APPROVED or REJECTED.' });
+    }
+
+    const verification = await prisma.investorVerification.findUnique({
+      where: { id: verificationId }
+    });
+
+    if (!verification || verification.status !== 'PENDING') {
+      return res.status(404).json({ error: 'Investor verification not found or not pending.' });
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+      const v = await tx.investorVerification.update({
+        where: { id: verificationId },
+        data: {
+          status: action,
+          reviewedAt: new Date(),
+          remarks: remarks || null
+        }
+      });
+
+      await TrustLayerService.recordEvent(tx, {
+        eventType: action === 'APPROVED' ? 'INVESTOR_VERIFICATION_APPROVED' : 'INVESTOR_VERIFICATION_REJECTED',
+        entityId: verification.id,
+        userId: adminId
+      });
+
+      await tx.notification.create({
+        data: {
+          userId: verification.investorId,
+          type: 'VERIFICATION',
+          message: `Your investor verification was ${action}.${remarks ? ` Reason: ${remarks}` : ''}`
+        }
+      });
+
+      return v;
+    });
+
+    res.json({ message: `Investor verification ${action} successfully.`, verification: result });
+  } catch (error) {
+    next(error);
+  }
+};
+

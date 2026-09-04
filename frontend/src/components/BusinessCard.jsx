@@ -5,7 +5,7 @@ import { StatusBadge } from './UI';
 
 const BusinessCard = ({ business }) => {
   const { t } = useTranslation();
-  const campaignCount = business.campaignCount || 0;
+  const campaignCount = business.activeCampaignCount ?? business.campaignCount ?? 0;
 
   return (
     <article className="business-card card">
