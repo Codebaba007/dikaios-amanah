@@ -6,17 +6,6 @@ A university Software Engineering project focused on building a trustworthy, tra
 
 ---
 
-## 📌 Current Status
-
-> **Academic Beta / MVP — Phase 5 Completed**
-
-Dikaios Amanah currently provides an end-to-end workflow connecting:
-
-**Business Owner → Administrator → Retail Investor**
-
-The implemented system includes authentication, role-based access control, business verification, document integrity tracking, campaign moderation, simulated investments, portfolio management, notifications, and a cryptographic trust/audit layer.
-
----
 
 ## 📋 Project Overview
 
