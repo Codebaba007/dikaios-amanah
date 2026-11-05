@@ -2,12 +2,23 @@
 
 Production topology:
 
-| Layer    | Service                | Free tier                              |
-| -------- | ---------------------- | -------------------------------------- |
-| Frontend | Vercel (Vite + React)  | Hobby                                  |
-| API      | Render (Node web svc)  | Free (sleeps after 15 min idle)        |
-| Database | Neon (PostgreSQL 16)   | Free (0.5 GB storage, autosuspend)     |
+| Layer    | Service                          | Free tier                              |
+| -------- | -------------------------------- | -------------------------------------- |
+| Frontend | Render static site (Vite + React) | Free (global CDN)                     |
+| API      | Render (Node web svc)            | Free (sleeps after 15 min idle)        |
+| Database | Neon (PostgreSQL 18)             | Free (0.5 GB storage, autosuspend)     |
 | Uploads  | Local disk, or any S3-compatible bucket (R2 / Supabase / S3) | — |
+
+The deployment that is live today:
+
+| Layer    | Location                                                              |
+| -------- | --------------------------------------------------------------------- |
+| Frontend | <https://dikaios-amanah-web.onrender.com> (`srv-dbm14jm1egvs73b0iueg`) |
+| API      | <https://dikaios-amanah-api.onrender.com> (`srv-dbm125m1egvs73b0ajmg`) |
+| Database | Neon project `odd-cherry-28590229`, Singapore                          |
+
+Both Render services are managed by a single Blueprint from `render.yaml`, so
+configuration changes belong in that file rather than in the dashboard.
 
 The local Docker stack and the hosted stack are independent: the public site
 never depends on the developer's computer.
@@ -78,8 +89,7 @@ its health check, and deploys straight from this repository's `render.yaml`.
    | Variable        | Value                                                    |
    | --------------- | -------------------------------------------------------- |
    | `DATABASE_URL`  | Neon **pooled** connection string                         |
-   | `JWT_SECRET`    | 48+ random bytes, hex (`node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`) |
-   | `FRONTEND_URL`  | `https://<project>.vercel.app` (comma-separate to add a custom domain) |
+   | `FRONTEND_URL`  | `https://dikaios-amanah-web.onrender.com` (comma-separate to add more origins) |
    | `STORAGE_DRIVER`| `local` (default) or `s3`                                 |
    | `S3_*`          | Only when `STORAGE_DRIVER=s3`                             |
 
@@ -93,23 +103,40 @@ its health check, and deploys straight from this repository's `render.yaml`.
    A `503` with `"database":"disconnected"` means `DATABASE_URL` is wrong or the
    Neon project is suspended — the health check deliberately fails in that case.
 
-## 3. Frontend — Vercel
+`JWT_SECRET` is deliberately **not** in that list: `render.yaml` declares
+`generateValue: true`, so Render generates 256 bits of entropy once, stores it
+encrypted, and reuses it on every deploy — previously issued tokens keep working.
+To rotate it, set an explicit value in the dashboard (this invalidates all
+sessions). Removing it entirely is not a safe shortcut: sign-in fails at token
+creation and every auth route returns `500`.
 
-1. **Add New → Project**, import the repository, set **Root Directory** to
-   `frontend`. Vercel reads `frontend/vercel.json`:
-   - Build command `npm run build`, output `dist`
-   - SPA rewrite to `/index.html` (React Router deep links work on refresh)
-   - Security headers and immutable asset caching
-2. Environment variable:
+## 3. Frontend — Render static site
 
-   | Variable       | Environments                  | Value                          |
-   | -------------- | ----------------------------- | ------------------------------ |
-   | `VITE_API_URL` | Production **and** Preview    | `https://<service>.onrender.com` |
+The Blueprint's second entry (`dikaios-amanah-web`) is a static site: `type: web`
+with `runtime: static` — static sites have no compute plan and no region, because
+Render serves them from a global CDN.
 
-   Vite inlines this at build time, so it must be present *before* the build —
-   changing it afterwards requires a redeploy.
-3. Deploy, open the URL, and hard-refresh a deep link (e.g. `/investor/browse`)
-   to confirm the SPA rewrite.
+1. Nothing to click: the same Blueprint sync that creates the API creates the
+   static site, and every push to the branch rebuilds it (`rootDir: frontend`,
+   build `npm install && npm run build`, publish `./dist`).
+2. `VITE_API_URL` is declared in `render.yaml` and inlined by Vite at build time;
+   changing it needs a rebuild (**Manual Deploy → Clear build cache & deploy**).
+3. SPA routing lives under `routes` in `render.yaml`:
+
+   ```yaml
+   routes:
+     - type: rewrite
+       source: /
+       destination: /index.html
+     - type: rewrite
+       source: /*
+       destination: /index.html
+   ```
+
+   The bare `/` needs its own rule — Render's `/*` does **not** match the root,
+   so without it the landing page returns `404` while deep links work.
+4. `frontend/vercel.json` is kept only as configuration for an alternative host;
+   Render ignores it, so its rewrites are duplicated in `render.yaml`.
 
 ## 4. Upload storage
 
@@ -149,7 +176,7 @@ database (delete the rows afterwards if the demo data must stay clean).
 
 | Service | Plan | Limit that matters                                        |
 | ------- | ---- | --------------------------------------------------------- |
-| Vercel  | Hobby | 100 GB bandwidth/month; commercial use requires Pro      |
+| Render static sites | Free | 100 GB bandwidth/month per site                    |
 | Render  | Free | 750 instance-hours/month; sleeps after 15 min idle (~50 s cold start) |
 | Neon    | Free | 0.5 GB storage, autosuspend after 5 min idle, ~100 compute-hours/month |
 | R2 / Supabase | Free | 10 GB / 1 GB storage                                     |
@@ -164,5 +191,8 @@ processes real money.
 - `STORAGE_DRIVER=local` on Render loses uploaded files across deploys.
 - Profit declaration endpoints exist but the UI only displays them.
 - No email verification or password reset flow is implemented.
+- Render static sites ignore `frontend/vercel.json`, so its security headers
+  (`X-Frame-Options`, `Referrer-Policy`, …) and immutable asset caching are not
+  applied. Port them to a `headers:` block in `render.yaml` if needed.
 - The audit ledger is hash-chained and tamper-evident, but it is not a
   blockchain and provides no external notarisation or regulatory certification.

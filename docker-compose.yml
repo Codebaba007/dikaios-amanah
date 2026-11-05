@@ -7,7 +7,7 @@
 # commonly occupies 5432 on Windows. Change DB_PORT if 5433 is also taken.
 #
 # This stack is for local development only. The hosted deployment uses Neon
-# (database), Render (API) and Vercel (frontend) — it does not depend on this
+# (database), Render (API and static frontend) — it does not depend on this
 # machine running.
 
 services:
