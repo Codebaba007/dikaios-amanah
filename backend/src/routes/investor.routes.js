@@ -12,7 +12,7 @@ const {
   getInvestorVerificationStatus
 } = require('../controllers/investor-verification.controller');
 const { authenticate, authorize } = require('../middlewares/auth.middleware');
-const { upload } = require('../services/storage.service');
+const { uploadSingle } = require('../services/storage.service');
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get('/businesses', getBusinesses);
 router.get('/businesses/:businessId', getBusinessDetail);
 
 // Investor verification
-router.post('/verification/submit', upload.single('document'), submitInvestorVerification);
+router.post('/verification/submit', uploadSingle('document'), submitInvestorVerification);
 router.get('/verification/status', getInvestorVerificationStatus);
 
 module.exports = router;
