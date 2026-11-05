@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { PageHeader, EmptyState, LoadingState, ErrorState, StatusBadge } from '../../components/UI';
+import { PieChart } from 'lucide-react';
+import {
+  PageHeader, SectionHeader, EmptyState, LoadingState, ErrorState,
+  StatusBadge, StatCard, SimulatedNotice, SmartImage
+} from '../../components/UI';
+import { industryImage } from '../../lib/images';
+import { apiRequest } from '../../lib/api';
 
 const Portfolio = () => {
   const { t } = useTranslation();
@@ -10,63 +16,86 @@ const Portfolio = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const { ok, data } = await apiRequest('/api/investor/portfolio');
+        if (!ok) throw new Error(t('common.error'));
+        setInvestments(data || []);
+      } catch (err) {
+        setError(err.message);
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchPortfolio();
-  }, []);
+  }, [t]);
 
-  const fetchPortfolio = async () => {
-    try {
-      const res = await fetch('http://localhost:5000/api/investor/portfolio', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      if (!res.ok) throw new Error(t('common.error'));
-      setInvestments(await res.json());
-    } catch (err) {
-      setError(err.message);
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const total = useMemo(() => investments.reduce((sum, inv) => sum + Number(inv.amount || 0), 0), [investments]);
 
-  if (loading) return <div className="container"><LoadingState /></div>;
-  if (error) return <div className="container" style={{ marginTop: '2rem' }}><ErrorState message={error} /></div>;
+  const distribution = useMemo(() => {
+    const rows = new Map();
+    investments.forEach(inv => {
+      const key = inv.campaign?.title || t('common.not_available');
+      const current = rows.get(key) || { title: key, amount: 0 };
+      current.amount += Number(inv.amount || 0);
+      rows.set(key, current);
+    });
+    return [...rows.values()].sort((a, b) => b.amount - a.amount);
+  }, [investments, t]);
 
-  // Compute total invested
-  const total = investments.reduce((sum, inv) => sum + Number(inv.amount), 0);
+  if (loading) return <LoadingState lines={6} />;
+  if (error) return <ErrorState message={error} />;
 
   return (
-    <div className="container">
+    <div>
       <PageHeader
         eyebrow={t('investor.dashboard')}
         title={t('investor.portfolio')}
         description={t('investor.portfolio_intro')}
-        actions={
-          <Link to="/investor/campaigns" className="btn btn-primary">
-            {t('investor.browse_campaigns')}
-          </Link>
-        }
+        actions={<Link to="/investor/campaigns" className="btn btn-primary">{t('investor.browse_campaigns')}</Link>}
       />
 
       {investments.length > 0 && (
-        <div className="card workspace-card" style={{ marginBottom: '1.5rem' }}>
-          <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap' }}>
-            <div>
-              <p className="eyebrow" style={{ marginBottom: '.2rem' }}>Total Simulated</p>
-              <p style={{ margin: 0, fontSize: '1.6rem', fontWeight: 700, color: 'var(--ink)' }}>
-                ${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </p>
+        <>
+          <div className="grid grid--3" style={{ marginBottom: '1.5rem' }}>
+            <StatCard
+              label={t('investor.stat_total_invested')}
+              value={`$${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              accent
+            />
+            <StatCard label={t('investor.stat_positions')} value={investments.length} />
+            <StatCard label={t('investor.stat_campaigns_backed')} value={distribution.length} />
+          </div>
+
+          <div className="card" style={{ marginBottom: '1.75rem' }}>
+            <div className="workspace-card__heading" style={{ marginBottom: '.5rem' }}>
+              <div>
+                <p className="eyebrow" style={{ margin: 0 }}>
+                  <PieChart size={13} style={{ verticalAlign: '-2px' }} aria-hidden="true" /> {t('investor.portfolio')}
+                </p>
+                <h2 style={{ fontSize: '1.1rem', margin: '0.15rem 0 0' }}>{t('investor.stat_distribution')}</h2>
+              </div>
             </div>
-            <div>
-              <p className="eyebrow" style={{ marginBottom: '.2rem' }}>Positions</p>
-              <p style={{ margin: 0, fontSize: '1.6rem', fontWeight: 700, color: 'var(--ink)' }}>
-                {investments.length}
-              </p>
+            <p className="form-help" style={{ marginBottom: '0.9rem' }}>{t('investor.distribution_hint')}</p>
+            <div style={{ display: 'grid', gap: '0.75rem' }}>
+              {distribution.map(row => {
+                const share = total ? (row.amount / total) * 100 : 0;
+                return (
+                  <div key={row.title}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem', fontSize: '0.86rem', marginBottom: '0.25rem' }}>
+                      <span className="td-strong" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{row.title}</span>
+                      <span style={{ color: 'var(--ink-muted)' }}>${row.amount.toLocaleString(undefined, { maximumFractionDigits: 2 })} · {Math.round(share)}%</span>
+                    </div>
+                    <div className="progress__track" style={{ height: 6 }}>
+                      <div className="progress__fill" style={{ width: `${share}%`, height: '100%' }} />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <div className="simulated-notice" style={{ marginTop: '1rem', marginBottom: 0 }}>
-            {t('campaign.simulated_notice')}
-          </div>
-        </div>
+        </>
       )}
 
       {investments.length === 0 ? (
@@ -76,36 +105,48 @@ const Portfolio = () => {
           action={<Link to="/investor/campaigns" className="btn btn-primary">{t('investor.browse_campaigns')}</Link>}
         />
       ) : (
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>{t('investor.invested_at')}</th>
-                <th>Campaign</th>
-                <th>Business</th>
-                <th>Amount</th>
-                <th>{t('investor.status')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {investments.map(inv => (
-                <tr key={inv.id}>
-                  <td style={{ whiteSpace: 'nowrap' }}>
-                    {new Date(inv.investedAt).toLocaleDateString()}
-                  </td>
-                  <td>
-                    <Link to={`/investor/campaigns/${inv.campaignId}`} style={{ color: 'var(--brand)', fontWeight: 600, textDecoration: 'none' }}>
-                      {inv.campaign.title}
-                    </Link>
-                  </td>
-                  <td style={{ color: 'var(--ink-muted)' }}>{inv.campaign.business.businessName}</td>
-                  <td style={{ fontWeight: 700 }}>${Number(inv.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                  <td><StatusBadge status={inv.status} /></td>
+        <>
+          <SectionHeader title={t('investor.investment_history')} />
+          <div className="table-wrap" style={{ marginBottom: '1.25rem' }}>
+            <table>
+              <thead>
+                <tr>
+                  <th>{t('investor.invested_at')}</th>
+                  <th>{t('investor.campaign_details')}</th>
+                  <th>{t('campaign.business')}</th>
+                  <th>{t('campaign.funding_progress')}</th>
+                  <th>{t('investor.status')}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {investments.map(inv => {
+                  const image = industryImage(inv.campaign?.business?.industry, inv.campaign?.title);
+                  return (
+                    <tr key={inv.id}>
+                      <td style={{ whiteSpace: 'nowrap' }}>
+                        {new Date(inv.investedAt).toLocaleDateString()}
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', gap: '.6rem', alignItems: 'center', minWidth: 0 }}>
+                          <SmartImage src={image.src} alt={image.alt} aspectClass="media--1x1" className="portfolio-thumb" />
+                          <Link to={`/investor/campaigns/${inv.campaignId}`} className="table-link" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {inv.campaign?.title}
+                          </Link>
+                        </div>
+                      </td>
+                      <td style={{ color: 'var(--ink-muted)' }}>{inv.campaign?.business?.businessName}</td>
+                      <td className="td-money">
+                        ${Number(inv.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      </td>
+                      <td><StatusBadge status={inv.status} /></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <SimulatedNotice />
+        </>
       )}
     </div>
   );
