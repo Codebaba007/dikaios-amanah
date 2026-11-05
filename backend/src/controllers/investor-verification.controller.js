@@ -13,8 +13,8 @@ exports.submitInvestorVerification = async (req, res, next) => {
       return res.status(400).json({ error: 'Supporting document is required.' });
     }
 
-    // Process file
-    const fileHash = await calculateFileHash(req.file.path);
+    // The storage service hashes the bytes it actually persisted (disk or bucket).
+    const fileHash = req.file.integrityHash || (await calculateFileHash(req.file.path));
 
     // Create InvestorVerification and InvestorDocument atomically
     const verification = await prisma.$transaction(async (tx) => {
@@ -29,7 +29,7 @@ exports.submitInvestorVerification = async (req, res, next) => {
         data: {
           fileName: req.file.originalname,
           fileType: req.file.mimetype,
-          storageReference: req.file.path, // Local path for academic MVP
+          storageReference: req.file.storageReference || req.file.path,
           integrityHash: fileHash,
           verificationId: v.id
         }

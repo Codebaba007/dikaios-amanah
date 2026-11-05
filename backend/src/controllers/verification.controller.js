@@ -23,7 +23,8 @@ exports.submitVerification = async (req, res, next) => {
     }
 
     // Process file
-    const fileHash = await calculateFileHash(req.file.path);
+    // The storage service hashes the bytes it actually persisted (disk or bucket).
+    const fileHash = req.file.integrityHash || (await calculateFileHash(req.file.path));
 
     // Create Verification and Document atomically
     const verification = await prisma.$transaction(async (tx) => {
@@ -39,7 +40,7 @@ exports.submitVerification = async (req, res, next) => {
         data: {
           fileName: req.file.originalname,
           fileType: req.file.mimetype,
-          storageReference: req.file.path, // Local path for academic MVP
+          storageReference: req.file.storageReference || req.file.path,
           integrityHash: fileHash,
           verificationId: v.id
         }

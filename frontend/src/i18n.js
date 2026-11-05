@@ -17,4 +17,12 @@ i18n
     }
   });
 
+// Keep the document language in sync for screen readers and correct text rendering.
+const applyDocumentLang = (lng) => {
+  document.documentElement.lang = lng;
+};
+
+applyDocumentLang(i18n.language || 'en');
+i18n.on('languageChanged', applyDocumentLang);
+
 export default i18n;

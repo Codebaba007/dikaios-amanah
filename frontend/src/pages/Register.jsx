@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
+import { Building2, User } from 'lucide-react';
 import { ErrorState } from '../components/UI';
+import { getImage } from '../lib/images';
+import { apiRequest } from '../lib/api';
 
 const Register = () => {
   const { t } = useTranslation();
@@ -15,13 +18,8 @@ const Register = () => {
     setError('');
     setSubmitting(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Registration failed');
+      const { ok, data } = await apiRequest('/api/auth/register', { method: 'POST', body: formData });
+      if (!ok) throw new Error(data?.error || 'Registration failed');
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.user.role);
@@ -37,29 +35,70 @@ const Register = () => {
     }
   };
 
+  const hero = getImage('heroAuth');
+
   return (
-    <div className="container" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+    <div className="container">
       <div className="auth-layout">
         <aside className="auth-layout__aside">
-          <div>
-            <span className="brand__seal" style={{ width: 44, height: 44, fontSize: '1.35rem', marginBottom: '1.5rem', display: 'grid', placeItems: 'center', borderRadius: '50%', background: 'rgba(255,255,255,.15)' }}>DA</span>
+          <div className="auth-layout__aside-img">
+            <img src={hero.src} alt={hero.alt} />
+          </div>
+          <span className="brand__seal" style={{ width: 44, height: 44, fontSize: '1.1rem' }}>DA</span>
+          <div style={{ marginTop: 'auto' }}>
+            <p className="eyebrow eyebrow--light">{t('nav.register')}</p>
             <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.2rem' }}>Dikaios Amanah</h1>
             <p>{t('auth.register_intro')}</p>
           </div>
         </aside>
+
         <div className="auth-layout__form">
-          <p className="eyebrow">{t('nav.register')}</p>
-          <h2 style={{ marginBottom: '1.5rem' }}>{t('auth.register_title')}</h2>
+          <p className="eyebrow">{t('auth.register_title')}</p>
+          <h2 style={{ marginBottom: '1.5rem', fontFamily: "'Playfair Display', serif" }}>{t('auth.register_title')}</h2>
 
           {error && <div style={{ marginBottom: '1rem' }}><ErrorState message={error} /></div>}
 
           <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label" htmlFor="regRole">{t('auth.role')}</label>
+              <div className="role-picker" role="radiogroup" aria-label={t('auth.role')}>
+                <label className={`role-option ${formData.role === 'INVESTOR' ? 'role-option--active' : ''}`}>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="INVESTOR"
+                    checked={formData.role === 'INVESTOR'}
+                    onChange={e => setFormData({ ...formData, role: e.target.value })}
+                  />
+                  <User size={18} aria-hidden="true" />
+                  <span>
+                    <strong>{t('auth.role_investor')}</strong>
+                    <span>{t('auth.role_investor_desc')}</span>
+                  </span>
+                </label>
+                <label className={`role-option ${formData.role === 'BUSINESS_OWNER' ? 'role-option--active' : ''}`}>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="BUSINESS_OWNER"
+                    checked={formData.role === 'BUSINESS_OWNER'}
+                    onChange={e => setFormData({ ...formData, role: e.target.value })}
+                  />
+                  <Building2 size={18} aria-hidden="true" />
+                  <span>
+                    <strong>{t('auth.role_business')}</strong>
+                    <span>{t('auth.role_business_desc')}</span>
+                  </span>
+                </label>
+              </div>
+            </div>
             <div className="form-group">
               <label className="form-label" htmlFor="regName">{t('auth.name')}</label>
               <input
                 id="regName"
                 type="text"
                 className="form-input"
+                autoComplete="name"
                 value={formData.name}
                 onChange={e => setFormData({ ...formData, name: e.target.value })}
                 required
@@ -71,6 +110,7 @@ const Register = () => {
                 id="regEmail"
                 type="email"
                 className="form-input"
+                autoComplete="email"
                 value={formData.email}
                 onChange={e => setFormData({ ...formData, email: e.target.value })}
                 required
@@ -82,33 +122,20 @@ const Register = () => {
                 id="regPassword"
                 type="password"
                 className="form-input"
+                autoComplete="new-password"
                 value={formData.password}
                 onChange={e => setFormData({ ...formData, password: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
-              <label className="form-label" htmlFor="regRole">{t('auth.role')}</label>
-              <select
-                id="regRole"
-                className="form-input"
-                value={formData.role}
-                onChange={e => setFormData({ ...formData, role: e.target.value })}
-              >
-                <option value="INVESTOR">{t('auth.role_investor')}</option>
-                <option value="BUSINESS_OWNER">{t('auth.role_business')}</option>
-              </select>
-            </div>
-            <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: '1.25rem' }} disabled={submitting}>
+            <button type="submit" className="btn btn-primary btn-block btn-lg" style={{ marginTop: '1.1rem' }} disabled={submitting}>
               {submitting ? t('common.loading') : t('auth.submit')}
             </button>
           </form>
 
-          <p style={{ marginTop: '1.25rem', fontSize: '.9rem' }}>
-            Already have an account?{' '}
-            <Link to="/login" style={{ color: 'var(--brand)', fontWeight: 600 }}>
-              {t('nav.login')}
-            </Link>
+          <p className="auth-footnote">
+            {t('auth.register_prompt')}{' '}
+            <Link to="/login">{t('nav.login')}</Link>
           </p>
         </div>
       </div>

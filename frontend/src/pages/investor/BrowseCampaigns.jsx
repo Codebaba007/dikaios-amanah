@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PageHeader, EmptyState, LoadingState, ErrorState } from '../../components/UI';
+import { Search, SlidersHorizontal, Store } from 'lucide-react';
+import { PageHeader, EmptyState, CardSkeleton, ErrorState } from '../../components/UI';
 import CampaignCard from '../../components/CampaignCard';
 import BusinessCard from '../../components/BusinessCard';
+import { apiRequest } from '../../lib/api';
 
 const BrowseCampaigns = () => {
   const { t } = useTranslation();
@@ -11,40 +13,32 @@ const BrowseCampaigns = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Discovery Controls State
+  // Discovery controls
   const [search, setSearch] = useState('');
   const [industry, setIndustry] = useState('');
   const [sort, setSort] = useState('newest');
   const [activeView, setActiveView] = useState('campaigns');
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` };
-
-      const [campaignsRes, businessesRes] = await Promise.all([
-        fetch('http://localhost:5000/api/investor/campaigns', { headers }),
-        fetch('http://localhost:5000/api/investor/businesses', { headers })
-      ]);
-
-      if (!campaignsRes.ok || !businessesRes.ok) {
-        throw new Error(t('common.error'));
+    const fetchData = async () => {
+      try {
+        const [campaignsRes, businessesRes] = await Promise.all([
+          apiRequest('/api/investor/campaigns'),
+          apiRequest('/api/investor/businesses')
+        ]);
+        if (!campaignsRes.ok || !businessesRes.ok) throw new Error(t('common.error'));
+        setCampaigns(campaignsRes.data || []);
+        setBusinesses(businessesRes.data || []);
+      } catch (err) {
+        setError(err.message);
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
+    };
+    fetchData();
+  }, [t]);
 
-      setCampaigns(await campaignsRes.json());
-      setBusinesses(await businessesRes.json());
-    } catch (err) {
-      setError(err.message);
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Derive unique industries from campaign data
   const availableIndustries = useMemo(() => {
     const industrySet = new Set();
     const uniqueIndustries = [];
@@ -61,10 +55,6 @@ const BrowseCampaigns = () => {
     return uniqueIndustries.sort();
   }, [campaigns]);
 
-  // We now use the businesses array fetched from the backend directly,
-  // so we don't need to derive them from campaigns anymore.
-
-  // --- Campaigns: filter + sort ---
   const filteredAndSortedCampaigns = useMemo(() => {
     let result = [...campaigns];
 
@@ -98,7 +88,6 @@ const BrowseCampaigns = () => {
     return result;
   }, [campaigns, search, industry, sort]);
 
-  // --- Businesses: filter + sort ---
   const filteredAndSortedBusinesses = useMemo(() => {
     let result = [...businesses];
 
@@ -115,28 +104,21 @@ const BrowseCampaigns = () => {
       result = result.filter(b => (b.industry || '').toLowerCase() === industry.toLowerCase());
     }
 
-    // Sort options for businesses
     if (sort === 'name') {
       result.sort((a, b) => (a.businessName || '').localeCompare(b.businessName || ''));
     } else if (sort === 'campaigns_count') {
       result.sort((a, b) => (b.activeCampaignCount || 0) - (a.activeCampaignCount || 0));
     } else {
-      // Default: alphabetical by name
       result.sort((a, b) => (a.businessName || '').localeCompare(b.businessName || ''));
     }
 
     return result;
   }, [businesses, search, industry, sort]);
 
-  // Adapt sort to the active view when switching tabs
   const handleViewChange = (view) => {
     setActiveView(view);
-    // Reset sort to a sensible default for the target view
-    if (view === 'campaigns') {
-      setSort('newest');
-    } else {
-      setSort('name');
-    }
+    if (view === 'campaigns') setSort('newest');
+    else setSort('name');
   };
 
   const handleClearFilters = () => {
@@ -145,32 +127,29 @@ const BrowseCampaigns = () => {
     setSort(activeView === 'campaigns' ? 'newest' : 'name');
   };
 
-  if (loading) return <div className="container"><LoadingState /></div>;
-  if (error) return <div className="container" style={{ marginTop: '2rem' }}><ErrorState message={error} /></div>;
+  if (loading) return <div><CardSkeleton count={6} /></div>;
+  if (error) return <ErrorState message={error} />;
 
   const defaultSort = activeView === 'campaigns' ? 'newest' : 'name';
   const hasActiveFilters = search !== '' || industry !== '' || sort !== defaultSort;
 
   const currentItems = activeView === 'campaigns' ? filteredAndSortedCampaigns : filteredAndSortedBusinesses;
 
-  // Result count text
   const resultCountText = activeView === 'campaigns'
     ? (currentItems.length === 1 ? t('investor.showing_one_result') : t('investor.showing_results', { count: currentItems.length }))
     : (currentItems.length === 1 ? t('investor.showing_one_business') : t('investor.showing_businesses', { count: currentItems.length }));
 
-  // Empty match text
   const noMatchText = activeView === 'campaigns' ? t('investor.no_matches') : t('investor.no_business_matches');
 
   return (
-    <div className="container">
+    <div>
       <PageHeader
         eyebrow={t('investor.dashboard')}
         title={t('investor.browse_campaigns')}
         description={t('investor.discover_intro')}
       />
 
-      {/* Discovery View Tabs */}
-      <div className="discovery-tabs" role="tablist">
+      <div className="discovery-tabs" role="tablist" aria-label={t('investor.browse_campaigns')}>
         <button
           role="tab"
           aria-selected={activeView === 'campaigns'}
@@ -189,22 +168,26 @@ const BrowseCampaigns = () => {
         </button>
       </div>
 
-      {/* Discovery Controls */}
-      <div className="discovery-controls" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem', alignItems: 'center' }}>
-        <input
-          type="text"
-          placeholder={t('investor.search_placeholder')}
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="form-control"
-          style={{ flex: '1 1 250px' }}
-        />
+      <div className="filter-bar">
+        <div style={{ position: 'relative', flex: '1 1 260px', display: 'flex', alignItems: 'center' }}>
+          <Search size={16} aria-hidden="true" style={{ position: 'absolute', left: '.8rem', color: 'var(--ink-faint)', pointerEvents: 'none' }} />
+          <input
+            type="text"
+            placeholder={t('investor.search_placeholder')}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="form-input"
+            style={{ paddingLeft: '2.4rem' }}
+            aria-label={t('investor.search_placeholder')}
+          />
+        </div>
 
         <select
           value={industry}
           onChange={e => setIndustry(e.target.value)}
-          className="form-control"
-          style={{ flex: '1 1 200px' }}
+          className="form-input"
+          style={{ flex: '1 1 190px' }}
+          aria-label={t('investor.all_industries')}
         >
           <option value="">{t('investor.all_industries')}</option>
           {availableIndustries.map(ind => (
@@ -215,8 +198,8 @@ const BrowseCampaigns = () => {
         <select
           value={sort}
           onChange={e => setSort(e.target.value)}
-          className="form-control"
-          style={{ flex: '1 1 200px' }}
+          className="form-input"
+          style={{ flex: '1 1 190px' }}
           aria-label={t('investor.sort_label')}
         >
           {activeView === 'campaigns' ? (
@@ -234,42 +217,28 @@ const BrowseCampaigns = () => {
         </select>
 
         {hasActiveFilters && (
-          <button
-            className="btn btn-secondary"
-            onClick={handleClearFilters}
-            style={{ flex: '0 0 auto' }}
-          >
+          <button className="btn btn-secondary btn-sm" onClick={handleClearFilters} style={{ flex: '0 0 auto' }}>
             {t('investor.clear_filters')}
           </button>
         )}
+        <span className="hero-strip__item" style={{ fontSize: '.85rem' }}>
+          <SlidersHorizontal size={15} aria-hidden="true" /> {resultCountText}
+        </span>
       </div>
 
-      {/* Result Count */}
-      <div style={{ marginBottom: '1.5rem', color: 'var(--ink-muted, #666)' }}>
-        {resultCountText}
-      </div>
-
-      {/* Content Grid */}
       {currentItems.length === 0 ? (
         <EmptyState
           title={noMatchText}
-          action={
-            <button className="btn btn-primary" onClick={handleClearFilters}>
-              {t('investor.clear_filters')}
-            </button>
-          }
+          action={<button className="btn btn-primary" onClick={handleClearFilters}>{t('investor.clear_filters')}</button>}
+          icon={activeView === 'campaigns' ? <Search size={20} aria-hidden="true" /> : <Store size={20} aria-hidden="true" />}
         />
       ) : activeView === 'campaigns' ? (
-        <div className="campaign-grid">
-          {filteredAndSortedCampaigns.map(c => (
-            <CampaignCard key={c.id} campaign={c} />
-          ))}
+        <div className="grid campaign-grid-mobile" style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}>
+          {filteredAndSortedCampaigns.map(c => <CampaignCard key={c.id} campaign={c} />)}
         </div>
       ) : (
-        <div className="campaign-grid">
-          {filteredAndSortedBusinesses.map(b => (
-            <BusinessCard key={b.id} business={b} />
-          ))}
+        <div className="grid campaign-grid-mobile" style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}>
+          {filteredAndSortedBusinesses.map(b => <BusinessCard key={b.id} business={b} />)}
         </div>
       )}
     </div>
