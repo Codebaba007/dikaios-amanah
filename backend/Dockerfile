@@ -8,10 +8,12 @@ RUN apt-get update -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# The prisma schema must be present before `npm install`, because the
+# postinstall hook runs `prisma generate`.
 COPY package.json ./
+COPY prisma ./prisma
 RUN npm install
 
-COPY prisma ./prisma
 RUN npx prisma generate
 
 COPY src ./src
