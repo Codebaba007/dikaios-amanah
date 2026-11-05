@@ -6,7 +6,10 @@
  * It only removes the duplicated inline `fetch` boilerplate from pages.
  */
 
-const BASE_URL = 'http://localhost:5000';
+// Configurable so the same build can talk to a local or a hosted API.
+// VITE_API_URL is set in frontend/.env.local locally and in the Vercel project
+// settings for preview/production deployments.
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 const TOKEN_KEY = 'token';
 
 export const getAuthHeaders = (json = true) => {
