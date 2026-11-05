@@ -1,4 +1,4 @@
-````markdown
+
 # Dikaios Amanah
 
 ### A Secure, Transparent and Ethical SME Investment Platform Based on Musharakah Principles
@@ -441,4 +441,4 @@ No separate open-source license is currently specified for this repository.
   <br>
   Department of Computer Science and Engineering
 </p>
-````
+
