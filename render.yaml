@@ -66,7 +66,11 @@ services:
         value: https://dikaios-amanah-api.onrender.com
     routes:
       # Single-page app: deep links such as /login resolve to index.html so a
-      # hard refresh does not 404.
+      # hard refresh does not 404. `/*` does not match the bare root, so `/`
+      # needs its own rule or the landing page returns 404.
+      - type: rewrite
+        source: /
+        destination: /index.html
       - type: rewrite
         source: /*
         destination: /index.html
